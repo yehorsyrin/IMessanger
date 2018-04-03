@@ -1,8 +1,8 @@
-package Server;
-import Server.Model.Obj;
-import Server.Model.Parser;
-import Server.Model.User;
-import Server.Model.UserList;
+
+import Model.Obj;
+import Model.Parser;
+import Model.User;
+import Model.UserList;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

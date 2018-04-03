@@ -1,16 +1,13 @@
-package Server;
-import Server.Model.Obj;
-import Server.Model.Parser;
-import Server.Model.User;
-import Server.Model.UserList;
+
+import Model.Obj;
+import Model.Parser;
+import Model.User;
+import Model.UserList;
 import org.w3c.dom.Document;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-import java.nio.file.attribute.UserDefinedFileAttributeView;
 import java.util.*;
 
 public class Server {
@@ -131,7 +128,7 @@ public static void main(String[] args) {
 	};commands.start();
 		System.out.println("server started");
 	Server server = new Server();
-	System.out.println("before end");
+	
 	
 }
 }
