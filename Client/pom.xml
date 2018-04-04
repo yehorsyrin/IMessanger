@@ -5,9 +5,9 @@
 
     <parent>
         <artifactId>IMessanger</artifactId>
-        <groupId>group.2.2</groupId>
+        <groupId>IMessanger</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -22,9 +22,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>${jar.plugin.version}</version>
+                <version>3.0.2</version>
                 <configuration>
-                    <useDefaultManifestFile>true</useDefaultManifestFile>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <useDefaultManifestFile>false</useDefaultManifestFile>
                     <archive>
                         <manifestEntries>
                             <Built-By>Apache Maven</Built-By>
@@ -33,7 +35,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
-                            <mainClass>com.company.controller.Main</mainClass>
+                            <mainClass>com/company/controller/Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -69,11 +71,11 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.miglayout/miglayout -->
-<dependency>
-    <groupId>com.miglayout</groupId>
-    <artifactId>miglayout</artifactId>
-    <version>3.7.4</version>
-</dependency>
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout</artifactId>
+            <version>3.7.4</version>
+        </dependency>
 
     </dependencies>
     
