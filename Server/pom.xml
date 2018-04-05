@@ -40,7 +40,7 @@
                         </manifestEntries>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
-                            <mainClass>src/Server</mainClass>
+                            <mainClass>Server</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
