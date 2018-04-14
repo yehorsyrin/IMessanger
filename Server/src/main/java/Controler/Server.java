@@ -1,8 +1,10 @@
+package Controler;
 
 import Model.Obj;
 import Model.Parser;
 import Model.User;
 import Model.UserList;
+import org.omg.CORBA.Environment;
 import org.w3c.dom.Document;
 
 import java.io.IOException;
@@ -78,12 +80,14 @@ public static void stopServer(){
 	
 }
 public static boolean commands(){
-		String help = "#/help";
-		String admin = "#/admin username y/n";
+		String help = "help";
+		String admin = "admin username y/n";
 		Scanner scanner = new Scanner(System.in);
 		String command = scanner.nextLine().trim();
 		if(command.equals("/help")){
-			System.out.println(help+", "+admin+", /online");
+			System.out.println("/online                 show all online users\n" +
+					           "/admin username y/n     if \"y\" gives user admin permission or take back admin permission if \"n\"\n" +
+							   "/stop                   stop server");
 		}else if(command.startsWith("/admin")) {
 			String name = command.substring("/admin ".length(), command.length() - 1).trim();
 			if (list.getUserByName(name) != null) {
@@ -91,18 +95,22 @@ public static boolean commands(){
 				if (command.endsWith("y")) {
 					list.getUserByName(name).setAdmin(true);
 					result = true;
-					System.out.println("#"+name+" is admin now");
+					System.out.println(name+" is admin now");
 				} else if (command.endsWith("n") && list.getUserByName(name).isAdmin().equals("true")) {
 					list.getUserByName(name).setAdmin(false);
 					result = false;
-					System.out.println("#"+name+"is not admin anymore");
-				} else System.out.println("#wrong format");
+					System.out.println(name+"is not admin anymore");
+				} else System.out.println("wrong format");
 				list.writeFile();
 				if (users.containsKey(list.getUserByName(name)))
 					AlternativeServerThread.admin(name, result);
-			} else System.out.println("#there is no such user");
+			} else System.out.println("there is no such user");
 		}else if(command.startsWith("/online")){
 			Iterator<User> iterator = users.keySet().iterator();
+			if(users.keySet().size()==0){
+				System.out.println("no online users");
+				return true;
+			}
 			while (iterator.hasNext()){
 				System.out.println("    "+iterator.next().getName());
 			}
@@ -110,17 +118,16 @@ public static boolean commands(){
 			stopServer();
 			return false;
 		}
-		else System.out.println("#there is no such command");
+		else System.out.println("there is no such command");
 		return true;
 	}
 public static void main(String[] args) {
 	Thread commands = new Thread(){
 		@Override
 		public void run(){
-			System.out.println("#print /help to see all server commands");
+			System.out.println("print /help to see all server commands");
 			boolean cont= true;
 			while (cont){
-				System.out.print("#");
 				cont =commands();
 				if(!cont) end();
 			}
