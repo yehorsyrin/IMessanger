@@ -33,6 +33,7 @@ public class ChangeNick extends JFrame {
         if(check) {
             Main.setNick(newNickField.getText());
             JOptionPane.showMessageDialog(null, "Nickname changed successfully");
+            Main.getMainWindow().setTitle(Main.getNick());
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Error in changing nickname");

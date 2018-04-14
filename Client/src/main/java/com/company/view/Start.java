@@ -43,7 +43,7 @@ public class Start extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Error in login");
         }
-
+        Main.getMainWindow().setTitle(Main.getNick());
     }
 
     private void registerActionPerformed(ActionEvent e) {
