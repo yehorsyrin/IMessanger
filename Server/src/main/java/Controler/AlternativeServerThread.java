@@ -39,7 +39,7 @@ private Parser parser = new Parser();
 				if(in.ready()){
 					String get = in.readLine();
 					System.out.println(get);
-					process(stringToXxl(get));
+					process(Parser.stringToXxl(get));
 				}
 			}
 		} catch (IOException e) {
@@ -205,7 +205,7 @@ private Obj youAreBanned(String name){
 }
 
 public static void  sendXML(Document document, Socket socket){
-	String toSend = XmlToString(document);
+	String toSend = Parser.XmlToString(document);
 	try {
 		PrintWriter out = new PrintWriter(new BufferedWriter(
 				new OutputStreamWriter(socket.getOutputStream())), true);
@@ -244,29 +244,7 @@ public static void admin(String name, boolean result){
 		}
 	}
 }
-public static Document stringToXxl(String string) throws ParserConfigurationException, IOException, SAXException {
-	DocumentBuilderFactory fctr = DocumentBuilderFactory.newInstance();
-	DocumentBuilder bldr = fctr.newDocumentBuilder();
-	InputSource insrc = new InputSource(new StringReader(string));
-	return bldr.parse(insrc);
-}
-public static String  XmlToString(Document doc){
-	TransformerFactory tf = TransformerFactory.newInstance();
-	Transformer transformer = null;
-	try {
-		transformer = tf.newTransformer();
-	} catch (TransformerConfigurationException e) {
-		e.printStackTrace();
-	}
-	transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-	StringWriter writer = new StringWriter();
-	try {
-		transformer.transform(new DOMSource(doc), new StreamResult(writer));
-	} catch (TransformerException e) {
-		e.printStackTrace();
-	}
-	String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
-	return output;
-}
+
+
 
 }

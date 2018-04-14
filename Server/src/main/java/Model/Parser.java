@@ -2,11 +2,19 @@ package Model;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.print.Doc;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 
 public class Parser {
 	public Obj parser(Document document){
@@ -142,4 +150,28 @@ public class Parser {
 		}
 		return toReturn;
 	}
+public static String  XmlToString(Document doc){
+	TransformerFactory tf = TransformerFactory.newInstance();
+	Transformer transformer = null;
+	try {
+		transformer = tf.newTransformer();
+	} catch (TransformerConfigurationException e) {
+		e.printStackTrace();
+	}
+	transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+	StringWriter writer = new StringWriter();
+	try {
+		transformer.transform(new DOMSource(doc), new StreamResult(writer));
+	} catch (TransformerException e) {
+		e.printStackTrace();
+	}
+	String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
+	return output;
+}
+public static Document stringToXxl(String string) throws ParserConfigurationException, IOException, SAXException {
+	DocumentBuilderFactory fctr = DocumentBuilderFactory.newInstance();
+	DocumentBuilder bldr = fctr.newDocumentBuilder();
+	InputSource insrc = new InputSource(new StringReader(string));
+	return bldr.parse(insrc);
+}
 }
