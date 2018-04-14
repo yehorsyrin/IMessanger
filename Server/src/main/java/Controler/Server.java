@@ -7,6 +7,7 @@ import Model.UserList;
 import org.omg.CORBA.Environment;
 import org.w3c.dom.Document;
 
+import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -62,6 +63,7 @@ public static void stopServer(){
 	    obj.setAction("server stop");
 		Document document = parser.create(obj);
 		Set<User> users  = getUsers().keySet();
+		int i=0;
 	for (User user:users) {
 		AlternativeServerThread.sendXML(document,getUsers().get(user));
 		try {
@@ -70,14 +72,36 @@ public static void stopServer(){
 			e.printStackTrace();
 		}
 		getUsers().remove(user);
+		if(getThreads().size()>=i)
+		getThreads().get(i).interrupt();
 	}
-	for (AlternativeServerThread thread:getThreads()) {
-		thread.interrupt();
-		getThreads().remove(thread);
-	}
+//	for (AlternativeServerThread thread:getThreads()) {
+//		thread.interrupt();
+//		getThreads().remove(thread);
+//	}
 	end();
 	System.out.println("stopped");
 	
+}
+public static void reload(){
+	Parser parser = new Parser();
+	Obj obj = new Obj();
+	obj.setAction("server stop");
+	Document document = parser.create(obj);
+	Set<User> users  = getUsers().keySet();
+	int i=0;
+	for (User user:users) {
+		AlternativeServerThread.sendXML(document,getUsers().get(user));
+		try {
+			getUsers().get(user).close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		getUsers().remove(user);
+		if(getThreads().size()>=i)
+			getThreads().get(i).interrupt();
+	}
+	System.out.println("restarted");
 }
 public static boolean commands(){
 		String help = "help";
@@ -87,8 +111,9 @@ public static boolean commands(){
 		if(command.equals("/help")){
 			System.out.println("/online                 show all online users\n" +
 					           "/admin username y/n     if \"y\" gives user admin permission or take back admin permission if \"n\"\n" +
-							   "/stop                   stop server");
-		}else if(command.startsWith("/admin")) {
+							   "/stop                   stop server\n" +
+							   "/restart                restart server");
+		}else if(command.startsWith("/admin")&&command.length()>9) {
 			String name = command.substring("/admin ".length(), command.length() - 1).trim();
 			if (list.getUserByName(name) != null) {
 				boolean result = false;
@@ -117,6 +142,10 @@ public static boolean commands(){
 		}else if(command.startsWith("/stop")) {
 			stopServer();
 			return false;
+		}
+		else if (command.equals("/restart")){
+			reload();
+			return true;
 		}
 		else System.out.println("there is no such command");
 		return true;
