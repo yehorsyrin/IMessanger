@@ -191,6 +191,13 @@ private Parser parser = new Parser();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			toCreate.setAction("chat message");
+			toCreate.setFrom("SERVER");
+			toCreate.setText(user.getName()+" logged out");
+			Set<User> users = userSocket.keySet();
+			for (User user:users) {
+				if(user.isBanned().equals("false")) sendXML(parser.create(toCreate),userSocket.get(user));
+			}
 			userSocket.remove(user);
 			updOnline();
 		}
