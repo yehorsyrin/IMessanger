@@ -18,31 +18,31 @@ public class Server {
 	private static HashMap<User,Socket> users= new HashMap<>();
 	private static ArrayList<AlternativeServerThread> threads = new ArrayList<>();
 	private static boolean work = true;
+	private static ServerSocket socketListener;
+	private static int initSocket;
 	private static Thread listen = new Thread(new Runnable() {
 	@Override
 	public void run() {
-		ServerSocket socketListener = null;
+		
 		try {
-			socketListener = new ServerSocket(7777);
+			socketListener = new ServerSocket(initSocket);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		while (true) {
-			if (!socketListener.isBound())
-				System.out.println("+");
 			Socket socket = null;
 			try {
 				socket = socketListener.accept();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println(socket.getLocalAddress().getHostAddress());
 			AlternativeServerThread thread = new AlternativeServerThread(socket, list, users);
 			threads.add(thread);
 		}
 	}
 });
-	public Server(){
+	public Server(int initSocket){
+		this.initSocket=initSocket;
 		listen.setDaemon(true);
 		listen.start();
 	}
@@ -54,7 +54,6 @@ private static ArrayList<AlternativeServerThread> getThreads(){
 		return threads;
 }
 private static void end(){
-	System.out.println("try");
 	listen.interrupt();
 }
 public static void stopServer(){
@@ -151,6 +150,17 @@ public static boolean commands(){
 		return true;
 	}
 public static void main(String[] args) {
+	System.out.println("print socket or print \"default\" to use default 7777 socket");
+	Scanner scanner = new Scanner(System.in);
+	String line = scanner.nextLine();
+	int s;
+	if(line.equals("default")){
+		s=7777;
+	}
+	else{
+		s = Integer.parseInt(line);
+	}
+	
 	Thread commands = new Thread(){
 		@Override
 		public void run(){
@@ -163,7 +173,7 @@ public static void main(String[] args) {
 		}
 	};commands.start();
 		System.out.println("server started");
-	Server server = new Server();
+	Server server = new Server(s);
 	
 	
 }

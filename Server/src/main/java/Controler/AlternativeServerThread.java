@@ -38,7 +38,6 @@ private Parser parser = new Parser();
 			while (true){
 				if(in.ready()){
 					String get = in.readLine();
-					System.out.println(get);
 					process(Parser.stringToXxl(get));
 				}
 			}
@@ -54,7 +53,7 @@ private Parser parser = new Parser();
 	private void process(Document document){
 	Obj parsed = parser.parser(document);
 	Obj toCreate = new Obj();
-		System.out.println(parsed.getAction());
+	
 	String action = parsed.getAction();
 	if(action.equals("login")){
 		if (list.getUserByName(parsed.getName())!=null) {
@@ -62,7 +61,6 @@ private Parser parser = new Parser();
 			if (logedIn) {
 				user = list.getUserByName(parsed.getName());
 				userSocket.put(user, socket);
-				System.out.println(userSocket);
 			}
 			//logedIn = user.login(parsed.getPassword());
 			toCreate.setAction("answer for login");
@@ -174,7 +172,6 @@ private Parser parser = new Parser();
 		}
 	}
 	if(action.equals("ban")&&logedIn&&user.isAdmin().equals("true")){
-			System.out.println("here");
 			toCreate.setAction("answer for banning");
 			toCreate.setName(parsed.getName());
 			toCreate.setResult("true");
