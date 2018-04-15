@@ -1,5 +1,6 @@
 package Model;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class UserList {
+	private static Logger logger = Logger.getRootLogger();
 	private ArrayList<User> users = new ArrayList<>();
 	public UserList(){
 		readFile();
@@ -33,7 +35,7 @@ public class UserList {
 		try {
 			builder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			logger.error("    problem with parsing XML user base",e);
 		}
 		Document list = builder.newDocument();
 		Element main = list.createElement("users");
@@ -67,14 +69,12 @@ public class UserList {
 		try {
 			t = TransformerFactory.newInstance().newTransformer();
 		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
+			logger.error("    problem with parsing XML user base",e);
 		}
 		try {
 			t.transform(new DOMSource(list), new StreamResult(new FileOutputStream(Users)));
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		} catch (TransformerException |FileNotFoundException e) {
+			logger.error("    problem with parsing XML user base",e);
 		}
 	}
 	public void readFile() {
@@ -83,7 +83,7 @@ public class UserList {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error("    problem with creating userList",e);
 			}
 		} else if(file.length()!=0){
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -91,13 +91,13 @@ public class UserList {
 			try {
 				db = dbf.newDocumentBuilder();
 			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
+				logger.error("    problem with parsing XML user base",e);
 			}
 			Document doc = null;
 			try {
 				doc = db.parse(file);
 			} catch (SAXException | IOException e) {
-				e.printStackTrace();
+				logger.error("    problem with parsing XML user base",e);
 			}
 			doc.getDocumentElement().normalize();
 			NodeList nodeList = doc.getElementsByTagName("user");

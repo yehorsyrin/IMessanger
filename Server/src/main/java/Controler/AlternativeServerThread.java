@@ -4,6 +4,7 @@ import Model.Obj;
 import Model.Parser;
 import Model.User;
 import Model.UserList;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class AlternativeServerThread extends Thread{
+private static Logger logger = Logger.getRootLogger();
 private Socket socket;
 private static UserList list;
 private User user;
@@ -41,12 +43,9 @@ private Parser parser = new Parser();
 					process(Parser.stringToXxl(get));
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+		} catch (IOException | SAXException | ParserConfigurationException e) {
+			logger.error("    problem with getting message from client",e);
+			System.out.println("message lost");
 		}
 	}
 	
@@ -186,16 +185,17 @@ private Parser parser = new Parser();
 			try {
 				userSocket.get(user).close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error("    problem with closing thread after logout",e);
 			}
 			toCreate.setAction("chat message");
 			toCreate.setFrom("SERVER");
 			toCreate.setText(user.getName()+" logged out");
+			userSocket.remove(user);
 			Set<User> users = userSocket.keySet();
 			for (User user:users) {
 				if(user.isBanned().equals("false")) sendXML(parser.create(toCreate),userSocket.get(user));
 			}
-			userSocket.remove(user);
+			
 			updOnline();
 		}
 	}
@@ -215,7 +215,8 @@ public static void  sendXML(Document document, Socket socket){
 				new OutputStreamWriter(socket.getOutputStream())), true);
 		out.println(toSend);
 	} catch (IOException e) {
-		e.printStackTrace();
+		logger.error("    problem with sending message from client",e);
+		System.out.println("message has not been sent");
 	}
 }
 

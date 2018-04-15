@@ -15,8 +15,10 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.logging.Logger;
 
 public class Parser {
+private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getRootLogger();
 	public Obj parser(Document document){
 		Obj toReturn = new Obj();
 		document.normalize();
@@ -80,7 +82,7 @@ public class Parser {
 		try {
 			builder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			logger.error("    problem with creating parser",e);
 		}
 		Document toReturn = builder.newDocument();
 		String action = toCreate.getAction();
@@ -156,14 +158,14 @@ public static String  XmlToString(Document doc){
 	try {
 		transformer = tf.newTransformer();
 	} catch (TransformerConfigurationException e) {
-		e.printStackTrace();
+		logger.error("    problem with parsing XML",e);
 	}
 	transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 	StringWriter writer = new StringWriter();
 	try {
 		transformer.transform(new DOMSource(doc), new StreamResult(writer));
 	} catch (TransformerException e) {
-		e.printStackTrace();
+		logger.error("    problem with parsing XML",e);
 	}
 	String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
 	return output;

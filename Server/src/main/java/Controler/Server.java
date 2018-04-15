@@ -4,6 +4,8 @@ import Model.Obj;
 import Model.Parser;
 import Model.User;
 import Model.UserList;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.omg.CORBA.Environment;
 import org.w3c.dom.Document;
 
@@ -13,28 +15,36 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
+
 public class Server {
+	public static Logger logger = Logger.getRootLogger();
 	private static UserList list = new UserList();
 	private static HashMap<User,Socket> users= new HashMap<>();
 	private static ArrayList<AlternativeServerThread> threads = new ArrayList<>();
 	private static boolean work = true;
 	private static ServerSocket socketListener;
 	private static int initSocket;
+	
 	private static Thread listen = new Thread(new Runnable() {
 	@Override
 	public void run() {
-		
 		try {
 			socketListener = new ServerSocket(initSocket);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("    problem with socket  ",e);
+			System.out.println("(!)some problems with socket, server stop work");
+			System.exit(1);
+			return;
 		}
+		System.out.println("server started");
+		System.out.println("print /help to see all commands");
 		while (true) {
 			Socket socket = null;
 			try {
 				socket = socketListener.accept();
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error("    problem with connecting to client socket  ",e);
+				System.out.println("(!)some problems with connecting to client socket "+socket.toString());
 			}
 			AlternativeServerThread thread = new AlternativeServerThread(socket, list, users);
 			threads.add(thread);
@@ -68,16 +78,13 @@ public static void stopServer(){
 		try {
 			getUsers().get(user).close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("    problem with closing some thread",e);
+			System.out.println("problem with closing thread");
 		}
 		getUsers().remove(user);
 		if(getThreads().size()>=i)
 		getThreads().get(i).interrupt();
 	}
-//	for (AlternativeServerThread thread:getThreads()) {
-//		thread.interrupt();
-//		getThreads().remove(thread);
-//	}
 	end();
 	System.out.println("stopped");
 	
@@ -94,7 +101,8 @@ public static void reload(){
 		try {
 			getUsers().get(user).close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("    problem with closing some thread",e);
+			System.out.println("problem with closing thread");
 		}
 		getUsers().remove(user);
 		if(getThreads().size()>=i)
@@ -149,7 +157,9 @@ public static boolean commands(){
 		else System.out.println("there is no such command");
 		return true;
 	}
+	
 public static void main(String[] args) {
+	logger.info("Started");
 	System.out.println("print socket or print \"default\" to use default 7777 socket");
 	Scanner scanner = new Scanner(System.in);
 	String line = scanner.nextLine();
@@ -160,11 +170,12 @@ public static void main(String[] args) {
 	else{
 		s = Integer.parseInt(line);
 	}
+	Server server = new Server(s);
 	
 	Thread commands = new Thread(){
 		@Override
 		public void run(){
-			System.out.println("print /help to see all server commands");
+			
 			boolean cont= true;
 			while (cont){
 				cont =commands();
@@ -172,9 +183,5 @@ public static void main(String[] args) {
 			}
 		}
 	};commands.start();
-		System.out.println("server started");
-	Server server = new Server(s);
-	
-	
 }
 }
