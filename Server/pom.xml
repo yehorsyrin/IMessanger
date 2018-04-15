@@ -15,7 +15,7 @@
         <resources>
             <resource>
                 <directory>
-                    src/lib
+                    src/res
                 </directory>
             </resource>
         </resources>

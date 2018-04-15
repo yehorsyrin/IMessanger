@@ -59,13 +59,23 @@ private Parser parser = new Parser();
 			logedIn = list.getUserByName(parsed.getName()).login(parsed.getPassword());
 			if (logedIn) {
 				user = list.getUserByName(parsed.getName());
+				Obj m = new Obj();
+				m.setAction("chat message");
+				m.setFrom("SERVER");
+				m.setText(user.getName()+" logged in");
+				Set<User> users = userSocket.keySet();
+				for (User user1:users) {
+					if(user1.isBanned().equals("false")) sendXML(parser.create(m),userSocket.get(user1));
+				}
+				
 				userSocket.put(user, socket);
 			}
 			//logedIn = user.login(parsed.getPassword());
 			toCreate.setAction("answer for login");
 			toCreate.setName(list.getUserByName(parsed.getName()).getName());
-			if (logedIn)
+			if (logedIn) {
 				toCreate.setResult("true");
+			}
 			else toCreate.setResult("false");
 			sendXML(parser.create(toCreate), socket);
 			//notify all
@@ -89,7 +99,8 @@ private Parser parser = new Parser();
 		}
 	sendXML(parser.create(toCreate),socket);
 	updOnline();
-	}if(action.equals("message")&&logedIn) {
+	}
+	if(action.equals("message")&&logedIn) {
 			if (user.isBanned().equals("false")) {
 				if(list.getUserByName(parsed.getTo()).isBanned().equals("false")) {
 					toCreate.setAction("message");
@@ -181,23 +192,27 @@ private Parser parser = new Parser();
 			sendXML(parser.create(toCreate),userSocket.get(user));
 			youAreBanned(parsed.getName());
 		}
-		if (action.equals("logout")){
-			try {
-				userSocket.get(user).close();
-			} catch (IOException e) {
-				logger.error("    problem with closing thread after logout",e);
-			}
-			toCreate.setAction("chat message");
-			toCreate.setFrom("SERVER");
-			toCreate.setText(user.getName()+" logged out");
-			userSocket.remove(user);
+		if (action.equals("logout")) {
+			Obj m = new Obj();
+			m.setAction("chat message");
+			m.setFrom("SERVER");
+			m.setText(user.getName() + " logged out");
+			
 			Set<User> users = userSocket.keySet();
-			for (User user:users) {
-				if(user.isBanned().equals("false")) sendXML(parser.create(toCreate),userSocket.get(user));
+			for (User user : users) {
+				if (user.isBanned().equals("false")) sendXML(parser.create(m), userSocket.get(user));
 			}
+//			try {
+//				if (!userSocket.get(user).isClosed())
+//					userSocket.get(user).close();
+//			} catch (IOException e) {
+//				logger.error("    problem with closing thread after logout", e);
+//			}
+			userSocket.remove(user);
 			
 			updOnline();
 		}
+		
 	}
 	
 
