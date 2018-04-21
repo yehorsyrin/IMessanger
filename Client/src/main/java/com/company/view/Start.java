@@ -22,48 +22,60 @@ public class Start extends JFrame {
     }
 
     private void logInActionPerformed(ActionEvent e) {
-        Main.setListOfUsers((new ListOfUsers(Main.getUsers())));
-        Main.setClient(new Client(Main.getHost(), Main.getPort()));
-        Main.setProfile(new Profile(Main.getNick(), Main.getStatus()));
-        Main.setMainChat(new Chat());
-        Main.setNick(nickField.getText());
-        String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"login\"> <name>" + nickField.getText()
-                + "</name> <password>" + passField.getText() + "</password> </class>";
-        Main.getOut().println(msg);
-        Main.getOut().flush();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
-        if(Main.getClient().isLogedIn()) {
-            dispose();
-            Main.setMainWindow(new MainWindow());
-            Main.getMainWindow().setVisible(true);
+        if(nickField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter nickname");
+        } else if(passField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter password");
         } else {
-            JOptionPane.showMessageDialog(null, "Error in login");
+            Main.setListOfUsers((new ListOfUsers(Main.getUsers())));
+            Main.setClient(new Client(Main.getHost(), Main.getPort()));
+            Main.setProfile(new Profile(Main.getNick(), Main.getStatus()));
+            Main.setMainChat(new Chat());
+            Main.setNick(nickField.getText());
+            String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"login\"> <name>" + nickField.getText()
+                    + "</name> <password>" + passField.getText() + "</password> </class>";
+            Main.getOut().println(msg);
+            Main.getOut().flush();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            if (Main.getClient().isLogedIn()) {
+                dispose();
+                Main.setMainWindow(new MainWindow());
+                Main.getMainWindow().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error in nickname/password");
+            }
+            Main.getMainWindow().setTitle(Main.getNick());
         }
-        Main.getMainWindow().setTitle(Main.getNick());
     }
 
     private void registerActionPerformed(ActionEvent e) {
-        Main.setClient(new Client(Main.getHost(), Main.getPort()));
-        Main.setProfile(new Profile(Main.getNick(), Main.getStatus()));
-        Main.setMainChat(new Chat());
-        Main.setNick(nickField.getText());
-        String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"create user\"> <name>" + nickField.getText()
-                + "</name> <password>" + passField.getText() + "</password> </class>";
-        Main.getOut().println(msg);
-        Main.getOut().flush();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
-        if(Main.getClient().isCreated()) {
-            logInActionPerformed(e);
+        if(nickField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter nickname");
+        } else if(passField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter password");
         } else {
-            JOptionPane.showMessageDialog(null, "Error in creating user");
+            Main.setClient(new Client(Main.getHost(), Main.getPort()));
+            Main.setProfile(new Profile(Main.getNick(), Main.getStatus()));
+            Main.setMainChat(new Chat());
+            Main.setNick(nickField.getText());
+            String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"create user\"> <name>" + nickField.getText()
+                    + "</name> <password>" + passField.getText() + "</password> </class>";
+            Main.getOut().println(msg);
+            Main.getOut().flush();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            if (Main.getClient().isCreated()) {
+                logInActionPerformed(e);
+            } else {
+                JOptionPane.showMessageDialog(null, "User with this nickname already exist");
+            }
         }
     }
 
