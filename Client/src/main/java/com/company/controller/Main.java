@@ -149,6 +149,25 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        BufferedReader br = null;
+        FileReader fr = null;
+        try {
+            fr = new FileReader("ServerSettings.txt");
+            br = new BufferedReader(fr);
+            host = br.readLine();
+            port = Integer.parseInt(br.readLine());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                fr.close();
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         Start start = new Start();
         users = new ArrayList<>();
         chats = new HashMap<>();
