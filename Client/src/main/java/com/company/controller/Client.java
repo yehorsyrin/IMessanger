@@ -152,7 +152,7 @@ public class Client implements Runnable{
                     }
                     if (action.equals("you are admin")) {
                         Main.setAdmin(true);
-                        Main.setStatus("Admin");
+                        Main.setStatus("Your status: Admin");
                     }
                     if (action.equals("answer for banning")) {
                         Element name = (Element) main.getElementsByTagName("name").item(0);
@@ -163,13 +163,13 @@ public class Client implements Runnable{
                             JOptionPane.showMessageDialog(null, "User " + nameStr + " is banned!");
                         }
                     }
-                    if (action.equals("answer for banning")) {
+                    if (action.equals("you are not admin")) {
                         Main.setAdmin(false);
-                        Main.setStatus("User");
+                        Main.setStatus("Your status: User");
                     }
                     if (action.equals("you are banned")) {
                         Main.setBan(true);
-                        Main.setStatus("User(banned)");
+                        Main.setStatus("Your status: User(banned)");
                         Main.getMainWindow().getChatBtn().setEnabled(false);
                         Main.getMainWindow().getListOfUsersBtn().setEnabled(false);
                         Main.getMainWindow().getProfileBtn().setEnabled(false);

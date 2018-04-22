@@ -14,7 +14,7 @@ public class Main {
     private static Profile profile;
     private static Client client;
     private static String nick;
-    private static String status = "test";
+    private static String status = "Your status: User";
     private static String host = "127.0.0.1";
     private static int port = 7777;
     private static Socket socket;

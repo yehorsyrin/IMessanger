@@ -20,22 +20,30 @@ public class ChangePassword extends JFrame {
     }
 
     private void okButtonActionPerformed(ActionEvent e) {
-        String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"change password\"> <name>" + Main.getNick()
-                + "</name> <password>" + oldPassField.getText() + "</password><newpassword>" + newPassField.getText() +
-                "</newpassword></class>";
-        Main.getOut().println(msg);
-        Main.getOut().flush();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
-        boolean check = Main.getClient().isCheck();
-        if(check) {
-            JOptionPane.showMessageDialog(null, "Password changed successfully");
-            dispose();
+        if(oldPassField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter old password");
+        } else if (newPassField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Enter new password");
+        } else if (oldPassField.getText().equals(newPassField.getText())) {
+            JOptionPane.showMessageDialog(null, "New and old passwords are the same");
         } else {
-            JOptionPane.showMessageDialog(null, "Error in changing password");
+            String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"change password\"> <name>" + Main.getNick()
+                    + "</name> <password>" + oldPassField.getText() + "</password><newpassword>" + newPassField.getText() +
+                    "</newpassword></class>";
+            Main.getOut().println(msg);
+            Main.getOut().flush();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            boolean check = Main.getClient().isCheck();
+            if (check) {
+                JOptionPane.showMessageDialog(null, "Password changed successfully");
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Old password is wrong");
+            }
         }
     }
 
