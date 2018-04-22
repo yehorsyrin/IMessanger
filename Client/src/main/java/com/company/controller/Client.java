@@ -175,6 +175,12 @@ public class Client implements Runnable{
                         Main.getMainWindow().getProfileBtn().setEnabled(false);
                         JOptionPane.showMessageDialog(null, "You are banned");
                     }
+                    if (action.equals("server stop")) {
+                        Main.getMainChat().getTextPane().setText(Main.getMainChat().getTextPane().getText() + "\nServer stopped!");
+                        Main.getSocket().close();
+                        Main.getIn().close();
+                        Main.getOut().close();
+                    }
                     if (action.equals("message")) {
                         Element from = (Element) main.getElementsByTagName("from").item(0);
                         final String fromStr = from.getTextContent();
