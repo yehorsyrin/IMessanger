@@ -28,9 +28,17 @@ import java.util.ArrayList;
 public class UserList {
 private static Logger logger = Logger.getRootLogger();
 private ArrayList < User > users = new ArrayList < > ();
+
+/**
+ * create new userList and read users from file
+ */
 public UserList() {
 	readFile();
 }
+
+/**
+ * rewrite a file with users to save changes
+ */
 public void writeFile() {
 	File Users = new File("userList.xml");
 	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -50,10 +58,6 @@ public void writeFile() {
 		Element name = list.createElement("name");
 		name.setTextContent(users.get(i).getName());
 		user.appendChild(name);
-		
-		Element id = list.createElement("id");
-		id.setTextContent(users.get(i).getId());
-		user.appendChild(id);
 		
 		Element password = list.createElement("password");
 		password.setTextContent(users.get(i).getPassword());
@@ -80,6 +84,10 @@ public void writeFile() {
 		logger.error("    problem with parsing XML user base", e);
 	}
 }
+
+/**
+ * read users from file
+ */
 public void readFile() {
 	File file = new File("userList.xml");
 	if (!file.exists()) {
@@ -108,9 +116,7 @@ public void readFile() {
 			Node node = nodeList.item(i);
 			Element element = (Element) node;
 			String name = element.getElementsByTagName("name").item(0).getTextContent();
-			String password = element.getElementsByTagName("password").item(0).getTextContent();
-			String id = element.getElementsByTagName("id").item(0).getTextContent();
-			String isBanned = element.getElementsByTagName("isBanned").item(0).getTextContent();
+			String password = element.getElementsByTagName("password").item(0).getTextContent();String isBanned = element.getElementsByTagName("isBanned").item(0).getTextContent();
 			String isAdmin = element.getElementsByTagName("isAdmin").item(0).getTextContent();
 			User user = new User(name, password);
 			if (isBanned.equals("true")) user.setBan(true);
@@ -120,6 +126,12 @@ public void readFile() {
 		}
 	}
 }
+
+/**
+ * search user by its name and return user
+ * @param name name of user to find
+ * @return user if exist or null if not
+ */
 public User getUserByName(String name) {
 	for (User user: users) {
 		if (user.getName().equals(name))
@@ -127,6 +139,11 @@ public User getUserByName(String name) {
 	}
 	return null;
 }
+
+/**
+ * add user to userList and rewrite file to save changes
+ * @param user is user to add
+ */
 public void addUser(User user) {
 	users.add(user);
 	writeFile();

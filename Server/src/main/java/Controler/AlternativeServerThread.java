@@ -155,10 +155,15 @@ private void process(Document document) {
 	if (action.equals("change password") && logedIn) {
 		if (user.isBanned().equals("false")) {
 			toCreate.setAction("answer for changing");
-			toCreate.setName(user.getName());
-			toCreate.setResult("true");
-			user.setPassword(parsed.getNewPassword());
-			list.writeFile();
+			if(user.login(parsed.getPassword())) {
+				toCreate.setName(user.getName());
+				toCreate.setResult("true");
+				user.setPassword(parsed.getNewPassword());
+				list.writeFile();
+			}else {
+				toCreate.setName(user.getName());
+				toCreate.setResult("false");
+			}
 			sendXML(parser.create(toCreate), userSocket.get(user));
 			//send
 		} else {
