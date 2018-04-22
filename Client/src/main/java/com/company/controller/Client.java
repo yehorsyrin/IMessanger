@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.view.PrivateChat;
+import com.company.view.Start;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -12,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
+import java.util.Map;
 
 public class Client implements Runnable{
     private boolean check;
@@ -43,6 +45,18 @@ public class Client implements Runnable{
     }
 
     public Client(String host, int port){
+        setup(host, port);
+    }
+    private void setup(String host, int port) {
+        if(Main.getSocket() != null && Main.getOut() != null && Main.getIn() != null) {
+            try {
+                Main.getSocket().close();
+                Main.getOut().close();
+                Main.getIn().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
             Main.setSocket(new Socket(host, port));
             System.out.println("Connected");
@@ -67,7 +81,6 @@ public class Client implements Runnable{
         Thread listenThread = new Thread(this);
         listenThread.start();
     }
-
     @Override
     public void run() {
         String input;
@@ -109,7 +122,6 @@ public class Client implements Runnable{
                         } else {
                             created = false;
                         }
-                        int y = 0;
                     }
                     if (action.equals("chat message")) {
                         Element from = (Element) main.getElementsByTagName("from").item(0);
@@ -180,6 +192,19 @@ public class Client implements Runnable{
                         Main.getSocket().close();
                         Main.getIn().close();
                         Main.getOut().close();
+                    }
+                    if (action.equals("server reload")) {
+                        JFrame parent;
+                        for (Map.Entry<String, PrivateChat> entry : Main.getChats().entrySet()) {
+                            parent = (JFrame) entry.getValue().getTopLevelAncestor();
+                            parent.dispose();
+                        }
+                        parent = (JFrame) Main.getMainChat().getTopLevelAncestor();
+                        parent.dispose();
+                        Main.setStart(new Start());
+                        Main.getStart().setVisible(true);
+                        setup(Main.getHost(), Main.getPort());
+                        Main.getMainChat().getTextPane().setText(Main.getMainChat().getTextPane().getText() + "\nServer reloaded!");
                     }
                     if (action.equals("message")) {
                         Element from = (Element) main.getElementsByTagName("from").item(0);

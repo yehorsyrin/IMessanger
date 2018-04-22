@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main {
+    private static Start start;
     private static MainWindow mainWindow;
     private static Chat mainChat;
     private static ListOfUsers listOfUsers;
@@ -24,6 +25,14 @@ public class Main {
     private static HashMap<String, PrivateChat> chats;
     private static boolean admin = false;
     private static boolean ban = false;
+
+    public static void setStart(Start start) {
+        Main.start = start;
+    }
+
+    public static Start getStart() {
+        return start;
+    }
 
     public static boolean isBan() {
         return ban;
@@ -168,7 +177,7 @@ public class Main {
                 e.printStackTrace();
             }
         }
-        Start start = new Start();
+        start = new Start();
         users = new ArrayList<>();
         chats = new HashMap<>();
         users.add("A");
