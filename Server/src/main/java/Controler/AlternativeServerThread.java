@@ -24,6 +24,13 @@ private User user;
 private static HashMap < User, Socket > userSocket;
 private boolean logedIn = false;
 private Parser parser = new Parser();
+
+/**
+ * constructor for creating thread of client
+ * @param socket socket of client
+ * @param list list of all users
+ * @param userSocket map with all online users and their sockets
+ */
 public AlternativeServerThread(Socket socket, UserList list, HashMap < User, Socket > userSocket) {
 	this.socket = socket;
 	this.list = list;
@@ -222,6 +229,12 @@ private Obj youAreBanned(String name) {
 	obj.setName(name);
 	return obj;
 }
+
+/**
+ * send document to socket
+ * @param document document to socket
+ * @param socket socket to which document will be send
+ */
 public static void sendXML(Document document, Socket socket) {
 	String toSend = Parser.XmlToString(document);
 	try {
@@ -246,6 +259,12 @@ private void updOnline() {
 		sendXML(document, userSocket.get(user));
 	}
 }
+
+/**
+ * send message about changing admin permission to user
+ * @param name name of user
+ * @param result "true" if admin and "false" if not
+ */
 public static void admin(String name, boolean result) {
 	Obj obj = new Obj();
 	if (userSocket.containsKey(list.getUserByName(name))) {
