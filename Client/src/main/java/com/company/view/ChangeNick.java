@@ -27,7 +27,7 @@ public class ChangeNick extends JFrame {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e1) {
-            e1.printStackTrace();
+            System.out.println("Error in \"ChangeNick.okButtonActionPerformed\" during pause of Thread");
         }
         boolean check = Main.getClient().isCheck();
         if(check) {

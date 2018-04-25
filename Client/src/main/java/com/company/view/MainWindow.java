@@ -60,7 +60,7 @@ public class MainWindow extends JFrame {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e1) {
-            e1.printStackTrace();
+            System.out.println("Error in \"MainWindow.listOfUsersActionPerformed\" during pause of Thread");
         }
         Main.getListOfUsers().setList(Main.getUsers());
         Main.getMainChat().setVisible(false);

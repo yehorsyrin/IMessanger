@@ -30,7 +30,7 @@ public class Parser {
                 builder = factory.newDocumentBuilder();
                 document = builder.parse(new InputSource(new StringReader(input)));
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Error in parsing XML-string");
             }
             document.normalize();
             Element main = (Element) document.getElementsByTagName("class").item(0);

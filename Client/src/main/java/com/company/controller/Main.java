@@ -163,18 +163,20 @@ public class Main {
         try {
             fr = new FileReader("ServerSettings.txt");
             br = new BufferedReader(fr);
+        } catch (FileNotFoundException e) {
+            System.out.println("Error during open \"ServerSettings.txt\"");
+        }
+        try {
             host = br.readLine();
             port = Integer.parseInt(br.readLine());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error in reading text from \"ServerSettings.txt\"");
         }finally {
             try {
                 fr.close();
                 br.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error in \"Main\" during close of readers");
             }
         }
         start = new Start();

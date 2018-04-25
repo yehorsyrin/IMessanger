@@ -39,7 +39,7 @@ public class Start extends JFrame {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {
-                e1.printStackTrace();
+                System.out.println("Error in \"Start.logInActionPerformed\" during pause of Thread");
             }
             if (Main.getClient().isLogedIn()) {
                 dispose();
@@ -69,7 +69,7 @@ public class Start extends JFrame {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {
-                e1.printStackTrace();
+                System.out.println("Error in \"Start.registerActionPerformed\" during pause of Thread");
             }
             if (Main.getClient().isCreated()) {
                 logInActionPerformed(e);

@@ -51,14 +51,14 @@ public class Client implements Runnable{
                 Main.getOut().close();
                 Main.getIn().close();
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error in \"Client.setup\" during close of Socket or IO streams");
             }
         }
         try {
             Main.setSocket(new Socket(host, port));
             System.out.println("Connected");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error in \"Client.setup\" during connecting to Server");
             System.out.println("Not connected");
             JOptionPane.showMessageDialog(null, "Can't connect to server");
         }
@@ -66,14 +66,14 @@ public class Client implements Runnable{
         try {
             reader = new InputStreamReader(Main.getSocket().getInputStream());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error in \"Client.setup\" during initialization of reader");
         }
         Main.setIn(new BufferedReader(reader));
 
         try {
             Main.setOut(new PrintWriter(Main.getSocket().getOutputStream()));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error in \"Client.setup\" during initialization of writer");
         }
         Thread listenThread = new Thread(this);
         listenThread.start();
@@ -201,7 +201,7 @@ public class Client implements Runnable{
                 }
             }
         } catch(IOException e) {
-            e.printStackTrace();
+            System.out.println("Error in \"Client.run\" during reading from input stream");
         }
     }
 }
