@@ -60,7 +60,6 @@ public class Info {
     }
 
     public String getAction() {
-
         return action;
     }
 

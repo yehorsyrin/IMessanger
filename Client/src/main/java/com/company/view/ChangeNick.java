@@ -10,11 +10,14 @@ import javax.swing.*;
 
 import com.company.controller.Main;
 import net.miginfocom.swing.*;
+import org.apache.log4j.Logger;
 
 /**
  * @author Anton Mishchenko
  */
 public class ChangeNick extends JFrame {
+    private static Logger logger = Logger.getRootLogger();
+
     public ChangeNick() {
         initComponents();
     }
@@ -28,6 +31,7 @@ public class ChangeNick extends JFrame {
             Thread.sleep(1000);
         } catch (InterruptedException e1) {
             System.out.println("Error in \"ChangeNick.okButtonActionPerformed\" during pause of Thread");
+            logger.error("Error in \"ChangeNick.okButtonActionPerformed\" during pause of Thread", e1);
         }
         boolean check = Main.getClient().isCheck();
         if(check) {

@@ -3,6 +3,7 @@ package com.company.model;
 import com.company.controller.Main;
 import com.company.view.PrivateChat;
 import com.company.view.Start;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -13,6 +14,7 @@ import java.io.*;
 
 public class Parser {
     Info info;
+    private static Logger logger = Logger.getRootLogger();
 
     public Info getInfo() {
         return info;
@@ -31,6 +33,7 @@ public class Parser {
                 document = builder.parse(new InputSource(new StringReader(input)));
             } catch (Exception e) {
                 System.out.println("Error in parsing XML-string");
+                logger.error("Error in parsing XML-string", e);
             }
             document.normalize();
             Element main = (Element) document.getElementsByTagName("class").item(0);

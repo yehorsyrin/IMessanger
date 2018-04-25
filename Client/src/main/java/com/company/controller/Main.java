@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import com.company.view.*;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.Socket;
@@ -25,6 +26,7 @@ public class Main {
     private static HashMap<String, PrivateChat> chats;
     private static boolean admin = false;
     private static boolean ban = false;
+    private static Logger logger = Logger.getRootLogger();
 
     public static void setStart(Start start) {
         Main.start = start;
@@ -165,18 +167,21 @@ public class Main {
             br = new BufferedReader(fr);
         } catch (FileNotFoundException e) {
             System.out.println("Error during open \"ServerSettings.txt\"");
+            logger.error("Error during open \"ServerSettings.txt\"", e);
         }
         try {
             host = br.readLine();
             port = Integer.parseInt(br.readLine());
         } catch (IOException e) {
             System.out.println("Error in reading text from \"ServerSettings.txt\"");
+            logger.error("Error in reading text from \"ServerSettings.txt\"", e);
         }finally {
             try {
                 fr.close();
                 br.close();
             } catch (IOException e) {
                 System.out.println("Error in \"Main\" during close of readers");
+                logger.error("Error in \"Main\" during close of readers", e);
             }
         }
         start = new Start();

@@ -11,11 +11,13 @@ import javax.swing.*;
 import com.company.controller.Client;
 import com.company.controller.Main;
 import net.miginfocom.swing.*;
+import org.apache.log4j.Logger;
 
 /**
  * @author Anton Mishchenko
  */
 public class Start extends JFrame {
+    private static Logger logger = Logger.getRootLogger();
 
     public Start() {
         initComponents();
@@ -40,6 +42,7 @@ public class Start extends JFrame {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {
                 System.out.println("Error in \"Start.logInActionPerformed\" during pause of Thread");
+                logger.error("Error in \"Start.registerActionPerformed\" during pause of Thread", e1);
             }
             if (Main.getClient().isLogedIn()) {
                 dispose();
@@ -70,6 +73,7 @@ public class Start extends JFrame {
                 Thread.sleep(1000);
             } catch (InterruptedException e1) {
                 System.out.println("Error in \"Start.registerActionPerformed\" during pause of Thread");
+                logger.error("Error in \"Start.registerActionPerformed\" during pause of Thread", e1);
             }
             if (Main.getClient().isCreated()) {
                 logInActionPerformed(e);

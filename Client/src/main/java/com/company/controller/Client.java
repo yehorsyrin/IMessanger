@@ -3,19 +3,20 @@ package com.company.controller;
 import com.company.model.Parser;
 import com.company.view.PrivateChat;
 import com.company.view.Start;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class Client implements Runnable{
     private boolean check;
     private boolean logedIn;
     private boolean created;
+    private static Logger logger = Logger.getRootLogger();
 
     public boolean isCreated() {
         return created;
@@ -52,6 +53,7 @@ public class Client implements Runnable{
                 Main.getIn().close();
             } catch (IOException e) {
                 System.out.println("Error in \"Client.setup\" during close of Socket or IO streams");
+                logger.error("Error in \"Client.setup\" during close of Socket or IO streams", e);
             }
         }
         try {
@@ -59,6 +61,7 @@ public class Client implements Runnable{
             System.out.println("Connected");
         } catch (IOException e) {
             System.out.println("Error in \"Client.setup\" during connecting to Server");
+            logger.error("Error in \"Client.setup\" during connecting to Server", e);
             System.out.println("Not connected");
             JOptionPane.showMessageDialog(null, "Can't connect to server");
         }
@@ -67,6 +70,7 @@ public class Client implements Runnable{
             reader = new InputStreamReader(Main.getSocket().getInputStream());
         } catch (IOException e) {
             System.out.println("Error in \"Client.setup\" during initialization of reader");
+            logger.error("Error in \"Client.setup\" during initialization of reader", e);
         }
         Main.setIn(new BufferedReader(reader));
 
@@ -74,6 +78,7 @@ public class Client implements Runnable{
             Main.setOut(new PrintWriter(Main.getSocket().getOutputStream()));
         } catch (IOException e) {
             System.out.println("Error in \"Client.setup\" during initialization of writer");
+            logger.error("Error in \"Client.setup\" during initialization of writer", e);
         }
         Thread listenThread = new Thread(this);
         listenThread.start();
@@ -202,6 +207,7 @@ public class Client implements Runnable{
             }
         } catch(IOException e) {
             System.out.println("Error in \"Client.run\" during reading from input stream");
+            logger.error("Error in \"Client.run\" during reading from input stream", e);
         }
     }
 }
