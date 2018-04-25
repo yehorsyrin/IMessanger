@@ -12,19 +12,24 @@ import com.company.controller.Main;
 import net.miginfocom.swing.*;
 
 /**
- * @author Anton Mishchenko
+ * class that creates window for selection action with user
  */
 public class ActionWithUser extends JFrame {
     private String nickname;
     private String clearNickname;
+
+    /**
+     * creates new window for selection action with user
+     * @param nickname nickname of user
+     */
     public ActionWithUser(String nickname) {
         initComponents();
-        if(Main.isAdmin()) {
+        if (Main.isAdmin()) {
             banBtn.setEnabled(true);
         } else {
             banBtn.setEnabled(false);
         }
-        if(nickname.contains("<html>")) {
+        if (nickname.contains("<html>")) {
             startChatBtn.setEnabled(false);
             banBtn.setEnabled(false);
         } else {
@@ -44,8 +49,8 @@ public class ActionWithUser extends JFrame {
             chat.setCheck(true);
             Main.getChats().put(nickname, chat);
             JFrame frame = new JFrame();
-            frame.addWindowListener(new WindowAdapter(){
-                public void windowClosing(WindowEvent e){
+            frame.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent e) {
                     Main.getChats().remove(nickname);
                 }
             });
@@ -86,10 +91,15 @@ public class ActionWithUser extends JFrame {
 
             // JFormDesigner evaluation mark
             panel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), panel.getBorder())); panel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                            "", javax.swing.border.TitledBorder.CENTER,
+                            javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                            Color.red), panel.getBorder()));
+            panel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                public void propertyChange(java.beans.PropertyChangeEvent e) {
+                    if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+                }
+            });
 
             panel.setLayout(new GridLayout(1, 2, 4, 4));
 

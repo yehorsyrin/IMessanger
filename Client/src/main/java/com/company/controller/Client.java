@@ -12,7 +12,10 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Map;
 
-public class Client implements Runnable{
+/**
+ * class for interaction with server
+ */
+public class Client implements Runnable {
     private boolean check;
     private boolean logedIn;
     private boolean created;
@@ -22,31 +25,25 @@ public class Client implements Runnable{
         return created;
     }
 
-    public void setCreated(boolean created) {
-        this.created = created;
-    }
-
     public boolean isLogedIn() {
         return logedIn;
-    }
-
-    public void setLogedIn(boolean logedIn) {
-        this.logedIn = logedIn;
     }
 
     public boolean isCheck() {
         return check;
     }
 
-    public void setCheck(boolean check) {
-        this.check = check;
-    }
-
-    public Client(String host, int port){
+    public Client(String host, int port) {
         setup(host, port);
     }
+
+    /**
+     * method for setuping Socket
+     * @param host host of server
+     * @param port port of server
+     */
     public void setup(String host, int port) {
-        if(Main.getSocket() != null && Main.getOut() != null && Main.getIn() != null) {
+        if (Main.getSocket() != null && Main.getOut() != null && Main.getIn() != null) {
             try {
                 Main.getSocket().close();
                 Main.getOut().close();
@@ -83,25 +80,29 @@ public class Client implements Runnable{
         Thread listenThread = new Thread(this);
         listenThread.start();
     }
+
+    /**
+     * method for for receiving and processing XMLs from server
+     */
     @Override
     public void run() {
         String input;
         Parser parser = new Parser();
         try {
-            while((input = Main.getIn().readLine()) != null) {
+            while ((input = Main.getIn().readLine()) != null) {
                 parser.parse(input);
                 String action = parser.getInfo().getAction();
-                if(action.equals("answer for login")) {
+                if (action.equals("answer for login")) {
                     String checkStr = parser.getInfo().getCheck();
-                    if(checkStr.equals("true")) {
+                    if (checkStr.equals("true")) {
                         logedIn = true;
                     } else {
                         logedIn = false;
                     }
                 }
-                if(action.equals("answer for creating user")) {
+                if (action.equals("answer for creating user")) {
                     String checkStr = parser.getInfo().getCheck();
-                    if(checkStr.equals("true")) {
+                    if (checkStr.equals("true")) {
                         created = true;
                     } else {
                         created = false;
@@ -116,7 +117,7 @@ public class Client implements Runnable{
                 if (action.equals("answer for changing")) {
                     String nameStr = parser.getInfo().getName();
                     String checkStr = parser.getInfo().getCheck();
-                    if(checkStr.equals("true")) {
+                    if (checkStr.equals("true")) {
                         check = true;
                         Main.setNick(nameStr);
                     } else {
@@ -125,10 +126,10 @@ public class Client implements Runnable{
                 }
                 if (action.equals("return online list")) {
                     Main.getUsers().clear();
-                    for(int i = 0; i < parser.getInfo().getUserList().size(); i++) {
+                    for (int i = 0; i < parser.getInfo().getUserList().size(); i++) {
                         String nameStr = parser.getInfo().getUserList().get(i);
                         String banStr = parser.getInfo().getBanList().get(i);
-                        if(banStr.equals("true")) {
+                        if (banStr.equals("true")) {
                             Main.addUser("<html><strike>" + nameStr + "</html></strike>");
                             Main.setBan(true);
                         } else {
@@ -147,7 +148,7 @@ public class Client implements Runnable{
                 if (action.equals("answer for banning")) {
                     String nameStr = parser.getInfo().getName();
                     String resultStr = parser.getInfo().getCheck();
-                    if(resultStr.equals("true")) {
+                    if (resultStr.equals("true")) {
                         JOptionPane.showMessageDialog(null, "User " + nameStr + " is banned!");
                     }
                 }
@@ -190,8 +191,8 @@ public class Client implements Runnable{
                         PrivateChat chat = new PrivateChat(fromStr);
                         Main.getChats().put(fromStr, chat);
                         JFrame frame = new JFrame();
-                        frame.addWindowListener(new WindowAdapter(){
-                            public void windowClosing(WindowEvent e){
+                        frame.addWindowListener(new WindowAdapter() {
+                            public void windowClosing(WindowEvent e) {
                                 Main.getChats().remove(fromStr);
                             }
                         });
@@ -205,7 +206,7 @@ public class Client implements Runnable{
                     Main.getChats().get(fromStr).getTextPane().setCaretPosition(Main.getChats().get(fromStr).getTextPane().getText().length());
                 }
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println("Error in \"Client.run\" during reading from input stream");
             logger.error("Error in \"Client.run\" during reading from input stream", e);
         }

@@ -12,25 +12,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * @author Anton Mishchenko
+ * class that creates private chat panel
  */
 public class PrivateChat extends JPanel {
     public JTextPane getTextPane() {
         return textPane;
     }
 
-    public JTextField getTextField() {
-        return textField;
-    }
-
-    public boolean isCheck() {
-        return check;
-    }
-
     public void setCheck(boolean check) {
         this.check = check;
     }
 
+    /**
+     * creates new private chat panel
+     *
+     * @param to nickname of interlocutor
+     */
     public PrivateChat(String to) {
         initComponents();
         this.to = to;
@@ -60,10 +57,15 @@ public class PrivateChat extends JPanel {
         //======== this ========
         // JFormDesigner evaluation mark
         setBorder(new javax.swing.border.CompoundBorder(
-            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                "", javax.swing.border.TitledBorder.CENTER,
-                javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                        "", javax.swing.border.TitledBorder.CENTER,
+                        javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                        Color.red), getBorder()));
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent e) {
+                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+            }
+        });
 
         setLayout(new BorderLayout(5, 5));
 

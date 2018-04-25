@@ -8,6 +8,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * main class
+ */
 public class Main {
     private static Start start;
     private static MainWindow mainWindow;
@@ -34,10 +37,6 @@ public class Main {
 
     public static Start getStart() {
         return start;
-    }
-
-    public static boolean isBan() {
-        return ban;
     }
 
     public static void setBan(boolean ban) {
@@ -87,6 +86,7 @@ public class Main {
     public static void setSocket(Socket socket) {
         Main.socket = socket;
     }
+
     public static Profile getProfile() {
         return profile;
     }
@@ -143,14 +143,6 @@ public class Main {
         Main.nick = nick;
     }
 
-    public static void setHost(String host) {
-        Main.host = host;
-    }
-
-    public static void setPort(int port) {
-        Main.port = port;
-    }
-
     public static void setMainWindow(MainWindow mainWindow) {
         Main.mainWindow = mainWindow;
     }
@@ -175,7 +167,7 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Error in reading text from \"ServerSettings.txt\"");
             logger.error("Error in reading text from \"ServerSettings.txt\"", e);
-        }finally {
+        } finally {
             try {
                 fr.close();
                 br.close();

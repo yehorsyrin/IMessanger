@@ -13,17 +13,20 @@ import net.miginfocom.swing.*;
 import org.apache.log4j.Logger;
 
 /**
- * @author Anton Mishchenko
+ * class that creates window for changing password
  */
 public class ChangePassword extends JFrame {
     private static Logger logger = Logger.getRootLogger();
 
+    /**
+     * creates new window for changing password
+     */
     public ChangePassword() {
         initComponents();
     }
 
     private void okButtonActionPerformed(ActionEvent e) {
-        if(oldPassField.getText().equals("")) {
+        if (oldPassField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter old password");
         } else if (newPassField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter new password");
@@ -77,24 +80,29 @@ public class ChangePassword extends JFrame {
 
             // JFormDesigner evaluation mark
             dialogPane.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                            "", javax.swing.border.TitledBorder.CENTER,
+                            javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                            Color.red), dialogPane.getBorder()));
+            dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                public void propertyChange(java.beans.PropertyChangeEvent e) {
+                    if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+                }
+            });
 
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new MigLayout(
-                    "fill,insets dialog,hidemode 3",
-                    // columns
-                    "[fill]",
-                    // rows
-                    "[]" +
-                    "[]" +
-                    "[]" +
-                    "[]"));
+                        "fill,insets dialog,hidemode 3",
+                        // columns
+                        "[fill]",
+                        // rows
+                        "[]" +
+                                "[]" +
+                                "[]" +
+                                "[]"));
 
                 //---- oldPassLabel ----
                 oldPassLabel.setText("Enter old password");
@@ -111,12 +119,12 @@ public class ChangePassword extends JFrame {
             //======== buttonBar ========
             {
                 buttonBar.setLayout(new MigLayout(
-                    "insets dialog,alignx right",
-                    // columns
-                    "[button,fill]" +
-                    "[button,fill]",
-                    // rows
-                    null));
+                        "insets dialog,alignx right",
+                        // columns
+                        "[button,fill]" +
+                                "[button,fill]",
+                        // rows
+                        null));
 
                 //---- okButton ----
                 okButton.setText("OK");

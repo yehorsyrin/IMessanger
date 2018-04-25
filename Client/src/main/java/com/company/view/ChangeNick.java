@@ -13,11 +13,14 @@ import net.miginfocom.swing.*;
 import org.apache.log4j.Logger;
 
 /**
- * @author Anton Mishchenko
+ * class that creates window for changing nickname
  */
 public class ChangeNick extends JFrame {
     private static Logger logger = Logger.getRootLogger();
 
+    /**
+     * creates new window for changing nickname
+     */
     public ChangeNick() {
         initComponents();
     }
@@ -34,7 +37,7 @@ public class ChangeNick extends JFrame {
             logger.error("Error in \"ChangeNick.okButtonActionPerformed\" during pause of Thread", e1);
         }
         boolean check = Main.getClient().isCheck();
-        if(check) {
+        if (check) {
             Main.setNick(newNickField.getText());
             Main.getProfile().getNickLabel().setText(newNickField.getText());
             JOptionPane.showMessageDialog(null, "Nickname changed successfully");
@@ -69,22 +72,27 @@ public class ChangeNick extends JFrame {
 
             // JFormDesigner evaluation mark
             dialogPane.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), dialogPane.getBorder())); dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                            "", javax.swing.border.TitledBorder.CENTER,
+                            javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                            Color.red), dialogPane.getBorder()));
+            dialogPane.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                public void propertyChange(java.beans.PropertyChangeEvent e) {
+                    if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+                }
+            });
 
             dialogPane.setLayout(new BorderLayout());
 
             //======== contentPanel ========
             {
                 contentPanel.setLayout(new MigLayout(
-                    "fill,insets dialog,hidemode 3",
-                    // columns
-                    "[fill]",
-                    // rows
-                    "[]" +
-                    "[]"));
+                        "fill,insets dialog,hidemode 3",
+                        // columns
+                        "[fill]",
+                        // rows
+                        "[]" +
+                                "[]"));
 
                 //---- newNickLabel ----
                 newNickLabel.setText("Enter new nickname");
@@ -96,12 +104,12 @@ public class ChangeNick extends JFrame {
             //======== buttonBar ========
             {
                 buttonBar.setLayout(new MigLayout(
-                    "insets dialog,alignx right",
-                    // columns
-                    "[button,fill]" +
-                    "[button,fill]",
-                    // rows
-                    null));
+                        "insets dialog,alignx right",
+                        // columns
+                        "[button,fill]" +
+                                "[button,fill]",
+                        // rows
+                        null));
 
                 //---- okButton ----
                 okButton.setText("OK");

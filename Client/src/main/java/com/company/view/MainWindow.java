@@ -12,9 +12,12 @@ import com.company.controller.Main;
 import net.miginfocom.swing.*;
 
 /**
- * @author Anton Mishchenko
+ * class that creates main window
  */
 public class MainWindow extends JFrame {
+    /**
+     * creates new main window
+     */
     public MainWindow() {
         initComponents();
         setSize(400, 400);
@@ -29,8 +32,8 @@ public class MainWindow extends JFrame {
         Main.getProfile().setBounds(0, 0, 398, 300);
         Main.getProfile().setVisible(false);
         this.add(layeredPane);
-        this.addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent e){
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
                 String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"logout\"> <logout>true</logout> </class>";
                 Main.getOut().println(msg);
                 Main.getOut().flush();
@@ -101,19 +104,24 @@ public class MainWindow extends JFrame {
 
             // JFormDesigner evaluation mark
             panel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), panel.getBorder())); panel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                            "", javax.swing.border.TitledBorder.CENTER,
+                            javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                            Color.red), panel.getBorder()));
+            panel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                public void propertyChange(java.beans.PropertyChangeEvent e) {
+                    if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+                }
+            });
 
             panel.setLayout(new MigLayout(
-                "fillx,hidemode 3",
-                // columns
-                "[fill]" +
-                "[fill]" +
-                "[fill]",
-                // rows
-                "[]"));
+                    "fillx,hidemode 3",
+                    // columns
+                    "[fill]" +
+                            "[fill]" +
+                            "[fill]",
+                    // rows
+                    "[]"));
 
             //---- chatBtn ----
             chatBtn.setText("Chat");

@@ -2,6 +2,9 @@ package com.company.model;
 
 import java.util.ArrayList;
 
+/**
+ * class for representation XMLs from server in comfortable form
+ */
 public class Info {
     private String action;
     private String name;
@@ -12,6 +15,9 @@ public class Info {
     private ArrayList<String> userList;
     private ArrayList<String> banList;
 
+    /**
+     * initialize userList and banList
+     */
     public Info() {
         userList = new ArrayList<>();
         banList = new ArrayList<>();
@@ -34,7 +40,6 @@ public class Info {
     }
 
     public String getFrom() {
-
         return from;
     }
 
@@ -47,7 +52,6 @@ public class Info {
     }
 
     public String getMessage() {
-
         return message;
     }
 

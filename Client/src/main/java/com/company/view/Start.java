@@ -14,19 +14,22 @@ import net.miginfocom.swing.*;
 import org.apache.log4j.Logger;
 
 /**
- * @author Anton Mishchenko
+ * class that creates starting window
  */
 public class Start extends JFrame {
     private static Logger logger = Logger.getRootLogger();
 
+    /**
+     * creates new starting window
+     */
     public Start() {
         initComponents();
     }
 
     private void logInActionPerformed(ActionEvent e) {
-        if(nickField.getText().equals("")) {
+        if (nickField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter nickname");
-        } else if(passField.getText().equals("")) {
+        } else if (passField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter password");
         } else {
             Main.setListOfUsers((new ListOfUsers(Main.getUsers())));
@@ -56,9 +59,9 @@ public class Start extends JFrame {
     }
 
     private void registerActionPerformed(ActionEvent e) {
-        if(nickField.getText().equals("")) {
+        if (nickField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter nickname");
-        } else if(passField.getText().equals("")) {
+        } else if (passField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Enter password");
         } else {
             Main.setClient(new Client(Main.getHost(), Main.getPort()));
@@ -97,15 +100,15 @@ public class Start extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new MigLayout(
-            "fill,hidemode 3",
-            // columns
-            "[fill]",
-            // rows
-            "[]" +
-            "[]" +
-            "[]" +
-            "[]" +
-            "[]"));
+                "fill,hidemode 3",
+                // columns
+                "[fill]",
+                // rows
+                "[]" +
+                        "[]" +
+                        "[]" +
+                        "[]" +
+                        "[]"));
 
         //---- nickLabel ----
         nickLabel.setText("Enter your nickname");
@@ -122,18 +125,23 @@ public class Start extends JFrame {
 
             // JFormDesigner evaluation mark
             panel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                    Color.red), panel.getBorder())); panel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                    new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                            "", javax.swing.border.TitledBorder.CENTER,
+                            javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                            Color.red), panel.getBorder()));
+            panel.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+                public void propertyChange(java.beans.PropertyChangeEvent e) {
+                    if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+                }
+            });
 
             panel.setLayout(new MigLayout(
-                "fillx,hidemode 3",
-                // columns
-                "[fill]" +
-                "[fill]",
-                // rows
-                "[]"));
+                    "fillx,hidemode 3",
+                    // columns
+                    "[fill]" +
+                            "[fill]",
+                    // rows
+                    "[]"));
 
             //---- logInBtn ----
             logInBtn.setText("Log In");

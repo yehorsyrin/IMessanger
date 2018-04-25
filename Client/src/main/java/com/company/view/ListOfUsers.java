@@ -10,9 +10,14 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 /**
- * @author Anton Mishchenko
+ * class that creates panel with user list
  */
 public class ListOfUsers extends JPanel {
+    /**
+     * creates new panel with user list
+     *
+     * @param users list of users
+     */
     public ListOfUsers(ArrayList<String> users) {
         initComponents();
         DefaultListModel model = new DefaultListModel();
@@ -25,11 +30,6 @@ public class ListOfUsers extends JPanel {
         scrollPane.setPreferredSize(new Dimension(100, 100));
         this.add(scrollPane);
         list.addMouseListener(mouseListener);
-    }
-
-
-    public JList getList() {
-        return list;
     }
 
     public void setList(ArrayList<String> users) {
@@ -48,7 +48,7 @@ public class ListOfUsers extends JPanel {
                 int index = theList.locationToIndex(mouseEvent.getPoint());
                 if (index >= 0) {
                     Object o = theList.getModel().getElementAt(index);
-                    if(!o.toString().equals("You are banned")) {
+                    if (!o.toString().equals("You are banned")) {
                         ActionWithUser actionWithUser = new ActionWithUser(o.toString());
                         actionWithUser.setVisible(true);
                     }
@@ -68,10 +68,15 @@ public class ListOfUsers extends JPanel {
 
         // JFormDesigner evaluation mark
         setBorder(new javax.swing.border.CompoundBorder(
-            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                "", javax.swing.border.TitledBorder.CENTER,
-                javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                        "", javax.swing.border.TitledBorder.CENTER,
+                        javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                        Color.red), getBorder()));
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent e) {
+                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+            }
+        });
 
         setLayout(new BorderLayout(5, 5));
 

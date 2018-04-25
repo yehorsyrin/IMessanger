@@ -11,9 +11,15 @@ import javax.swing.*;
 import net.miginfocom.swing.*;
 
 /**
- * @author Anton Mishchenko
+ * class that creates profile panel
  */
 public class Profile extends JPanel {
+    /**
+     * creates new profile panel
+     *
+     * @param nick nickname of user
+     * @param status status of user(Admin/User)
+     */
     public Profile(String nick, String status) {
         initComponents();
         nickLabel.setText("Your nickname: " + nick);
@@ -52,35 +58,40 @@ public class Profile extends JPanel {
 
         // JFormDesigner evaluation mark
         setBorder(new javax.swing.border.CompoundBorder(
-            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                "", javax.swing.border.TitledBorder.CENTER,
-                javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
-                Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                        "", javax.swing.border.TitledBorder.CENTER,
+                        javax.swing.border.TitledBorder.BOTTOM, new Font("Dialog", Font.BOLD, 12),
+                        Color.red), getBorder()));
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent e) {
+                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+            }
+        });
 
         setLayout(new BorderLayout(5, 5));
 
         //======== panel1 ========
         {
             panel1.setLayout(new MigLayout(
-                "fill,hidemode 3",
-                // columns
-                "[fill]",
-                // rows
-                "[]" +
-                "[]" +
-                "[]"));
+                    "fill,hidemode 3",
+                    // columns
+                    "[fill]",
+                    // rows
+                    "[]" +
+                            "[]" +
+                            "[]"));
             panel1.add(nickLabel, "cell 0 0");
             panel1.add(statusLabel, "cell 0 1");
 
             //======== panel2 ========
             {
                 panel2.setLayout(new MigLayout(
-                    "fillx,hidemode 3",
-                    // columns
-                    "[fill]" +
-                    "[fill]",
-                    // rows
-                    "[]"));
+                        "fillx,hidemode 3",
+                        // columns
+                        "[fill]" +
+                                "[fill]",
+                        // rows
+                        "[]"));
 
                 //---- nickBtn ----
                 nickBtn.setText("Change nickname");
