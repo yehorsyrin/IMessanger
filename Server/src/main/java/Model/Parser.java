@@ -19,6 +19,12 @@ import java.io.StringWriter;
  */
 public class Parser {
 private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getRootLogger();
+
+/**
+ * create object with information from xml
+ * @param document xml to parse
+ * @return obj with information
+ */
 public Obj parser(Document document) {
 	Obj toReturn = new Obj();
 	document.normalize();
@@ -76,6 +82,12 @@ public Obj parser(Document document) {
 	}
 	return toReturn;
 }
+
+/**
+ * create document from obj
+ * @param toCreate odj to get information from
+ * @return created xml
+ */
 public Document create(Obj toCreate) {
 	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder builder = null;
@@ -149,6 +161,12 @@ public Document create(Obj toCreate) {
 	}
 	return toReturn;
 }
+
+/**
+ * create string from xml
+ * @param doc xml to transform to string
+ * @return created string
+ */
 public static String XmlToString(Document doc) {
 	TransformerFactory tf = TransformerFactory.newInstance();
 	Transformer transformer = null;
@@ -167,6 +185,15 @@ public static String XmlToString(Document doc) {
 	String output = writer.getBuffer().toString().replaceAll("\n|\r", "");
 	return output;
 }
+
+/**
+ * parse string to xml document
+ * @param string string with information to xml
+ * @return created xml document
+ * @throws ParserConfigurationException
+ * @throws IOException
+ * @throws SAXException
+ */
 public static Document stringToXxl(String string) throws ParserConfigurationException, IOException, SAXException {
 	DocumentBuilderFactory fctr = DocumentBuilderFactory.newInstance();
 	DocumentBuilder bldr = fctr.newDocumentBuilder();

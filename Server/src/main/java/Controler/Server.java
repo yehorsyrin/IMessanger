@@ -46,6 +46,11 @@ private static Thread listen = new Thread(new Runnable() {
 		}
 	}
 });
+
+/**
+ * create thread of server and run it
+ * @param initSocket socket on which server runs
+ */
 public Server(int initSocket) {
 	this.initSocket = initSocket;
 	listen.setDaemon(true);
