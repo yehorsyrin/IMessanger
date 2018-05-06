@@ -46,6 +46,7 @@
                             <mainClass>Controler.Server</mainClass>
                         </manifest>
                     </archive>
+                    <classifier>exec</classifier>
                 </configuration>
             </plugin>
             <plugin>
@@ -67,6 +68,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <classifier>exec</classifier>
                 </configuration>
 
             </plugin>
@@ -82,8 +84,8 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${curerend}
-                            </outputDirectory>
+                            <outputDirectory>${curerend}</outputDirectory>
+                            <classifier>exec</classifier>
                         </configuration>
                     </execution>
                 </executions>

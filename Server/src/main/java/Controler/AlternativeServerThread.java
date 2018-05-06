@@ -1,9 +1,9 @@
 package Controler;
 
-import Model.Obj;
-import Model.Parser;
-import Model.User;
-import Model.UserList;
+import Model.Server.Obj;
+import Model.Server.Parser;
+import Model.Server.User;
+import Model.Server.UserList;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;

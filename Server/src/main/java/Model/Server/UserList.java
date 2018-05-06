@@ -1,4 +1,4 @@
-package Model;
+package Model.Server;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;

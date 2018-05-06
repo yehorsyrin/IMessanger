@@ -1,6 +1,6 @@
 package com.company.controller;
 
-import com.company.model.Parser;
+import Model.Client.Parser;
 import com.company.view.PrivateChat;
 import com.company.view.Start;
 import org.apache.log4j.Logger;

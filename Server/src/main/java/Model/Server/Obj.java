@@ -1,4 +1,4 @@
-package Model;
+package Model.Server;
 
 import java.util.ArrayList;
 

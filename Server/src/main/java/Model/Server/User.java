@@ -1,4 +1,4 @@
-package Model;
+package Model.Server;
 
 /**
  * class of user, every instance contains information about user

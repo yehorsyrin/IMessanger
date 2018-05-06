@@ -1,8 +1,5 @@
-package com.company.model;
+package Model.Client;
 
-import com.company.controller.Main;
-import com.company.view.PrivateChat;
-import com.company.view.Start;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -84,7 +81,6 @@ public class Parser {
             }
             if (action.equals("return online list")) {
                 info.setAction(action);
-                Main.getUsers().clear();
                 for (int i = 0; i < main.getElementsByTagName("name").getLength(); i++) {
                     Element name = (Element) main.getElementsByTagName("name").item(i);
                     String nameStr = name.getTextContent();
