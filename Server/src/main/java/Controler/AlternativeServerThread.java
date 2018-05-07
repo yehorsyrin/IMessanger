@@ -49,7 +49,7 @@ public void run() {
 			}
 		}
 	} catch (IOException | SAXException | ParserConfigurationException e) {
-		logger.error("    problem with getting message from client", e);
+		logger.error("    problem with getting message from client, user "+socket.getInetAddress().getHostAddress(), e);
 		System.out.println("message lost");
 	}
 }
@@ -242,7 +242,7 @@ public static void sendXML(Document document, Socket socket) {
 				new OutputStreamWriter(socket.getOutputStream())), true);
 		out.println(toSend);
 	} catch (IOException e) {
-		logger.error("    problem with sending message from client", e);
+		logger.error("    problem with sending message to client, user "+socket.getInetAddress().getHostAddress(), e);
 		System.out.println("message has not been sent");
 	}
 }

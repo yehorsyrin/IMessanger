@@ -78,7 +78,7 @@ private static void stopServer() {
 		try {
 			getUsers().get(user).close();
 		} catch (IOException e) {
-			logger.error("    problem with closing some thread", e);
+			logger.error("    problem with closing thread "+getUsers().get(user).getInetAddress().getHostAddress(), e);
 			System.out.println("problem with closing thread");
 		}
 		getUsers().remove(user);
