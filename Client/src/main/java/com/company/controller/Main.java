@@ -2,7 +2,6 @@ package com.company.controller;
 
 import com.company.view.*;
 import org.apache.log4j.Logger;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -152,10 +151,23 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        File file = new File("ServerSettings.txt");
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+                PrintStream fileStream = new PrintStream(file);
+                fileStream.println("127.0.0.1");
+                fileStream.println("7777");
+            } catch (IOException e) {
+                logger.error("Error during creating \"ServerSettings.txt\"");
+            }
+            
+        }
         BufferedReader br = null;
         FileReader fr = null;
         try {
             fr = new FileReader("ServerSettings.txt");
+            
             br = new BufferedReader(fr);
         } catch (FileNotFoundException e) {
             System.out.println("Error during open \"ServerSettings.txt\"");
