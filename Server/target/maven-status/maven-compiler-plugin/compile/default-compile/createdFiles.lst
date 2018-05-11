@@ -1,8 +1,10 @@
 Controler\AlternativeServerThread.class
-Model\User.class
+Model\Server\Parser.class
 Controler\Server$2.class
-Model\Obj.class
-Model\Parser.class
+Model\Server\User.class
+Model\Client\Info.class
 Controler\Server.class
-Model\UserList.class
+Model\Client\Parser.class
+Model\Server\UserList.class
 Controler\Server$1.class
+Model\Server\Obj.class

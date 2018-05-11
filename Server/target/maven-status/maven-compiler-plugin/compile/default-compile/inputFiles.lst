@@ -1,6 +1,8 @@
+D:\prog\java\IMessanger2\Server\src\main\java\Model\Client\Info.java
 D:\prog\java\IMessanger2\Server\src\main\java\Controler\AlternativeServerThread.java
-D:\prog\java\IMessanger2\Server\src\main\java\Model\Obj.java
-D:\prog\java\IMessanger2\Server\src\main\java\Model\UserList.java
+D:\prog\java\IMessanger2\Server\src\main\java\Model\Server\UserList.java
+D:\prog\java\IMessanger2\Server\src\main\java\Model\Server\Obj.java
 D:\prog\java\IMessanger2\Server\src\main\java\Controler\Server.java
-D:\prog\java\IMessanger2\Server\src\main\java\Model\Parser.java
-D:\prog\java\IMessanger2\Server\src\main\java\Model\User.java
+D:\prog\java\IMessanger2\Server\src\main\java\Model\Server\Parser.java
+D:\prog\java\IMessanger2\Server\src\main\java\Model\Server\User.java
+D:\prog\java\IMessanger2\Server\src\main\java\Model\Client\Parser.java
