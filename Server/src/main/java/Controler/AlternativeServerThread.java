@@ -61,6 +61,12 @@ private void process(Document document) {
 	String action = parsed.getAction();
 	if (action.equals("login")) {
 		if (list.getUserByName(parsed.getName()) != null) {
+			if(userSocket.containsKey(list.getUserByName(parsed.getName()))){
+				toCreate.setAction("answer for login");
+				toCreate.setResult("false");
+				sendXML(parser.create(toCreate), socket);
+				return;
+			}
 			logedIn = list.getUserByName(parsed.getName()).login(parsed.getPassword());
 			if (logedIn) {
 				user = list.getUserByName(parsed.getName());
@@ -194,12 +200,32 @@ private void process(Document document) {
 		toCreate.setAction("answer for banning");
 		toCreate.setName(parsed.getName());
 		toCreate.setResult("true");
-		if (list.getUserByName(parsed.getName()).isBanned().equals("true"))
+		Obj m = new Obj();
+		if (list.getUserByName(parsed.getName()).isBanned().equals("true")) {
 			list.getUserByName(parsed.getName()).setBan(false);
-		else list.getUserByName(parsed.getName()).setBan(true);
+			m.setAction("chat message");
+			m.setFrom("SERVER");
+			m.setText(parsed.getName() + " is not banned now");
+			Set < User > users = userSocket.keySet();
+			for (User user1: users) {
+				if (user1.isBanned().equals("false")) sendXML(parser.create(m), userSocket.get(user1));
+			}
+			youAreNotBanned(parsed.getName());
+		}
+		else{
+			m.setAction("chat message");
+			m.setFrom("SERVER");
+			m.setText(parsed.getName() + " is banned now");
+			Set < User > users = userSocket.keySet();
+			for (User user1: users) {
+				if (user1.isBanned().equals("false")) sendXML(parser.create(m), userSocket.get(user1));
+			}
+			list.getUserByName(parsed.getName()).setBan(true);
+			youAreBanned(parsed.getName());
+		}
 		list.writeFile();
 		sendXML(parser.create(toCreate), userSocket.get(user));
-		youAreBanned(parsed.getName());
+		updOnline();
 	}
 	if (action.equals("logout")) {
 		Obj m = new Obj();
@@ -229,7 +255,12 @@ private Obj youAreBanned(String name) {
 	obj.setName(name);
 	return obj;
 }
-
+private Obj youAreNotBanned(String name) {
+	Obj obj = new Obj();
+	obj.setAction("you are not banned");
+	obj.setName(name);
+	return obj;
+}
 /**
  * send document to socket
  * @param document document to socket

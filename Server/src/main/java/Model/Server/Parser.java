@@ -142,6 +142,11 @@ public Document create(Obj toCreate) {
 		name.setTextContent(toCreate.getName());
 		main.appendChild(name);
 	}
+	if (action.equals("you are not banned")) {
+		Element name = toReturn.createElement("name");
+		name.setTextContent(toCreate.getName());
+		main.appendChild(name);
+	}
 	if (action.equals("return online list")) {
 		for (int i = 0; i < toCreate.getUser().size(); i++) {
 			String name = toCreate.getUser().get(i);
