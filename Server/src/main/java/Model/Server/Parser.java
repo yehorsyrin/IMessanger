@@ -80,6 +80,10 @@ public Obj parser(Document document) {
 		Element name = (Element) main.getElementsByTagName("name").item(0);
 		toReturn.setName(name.getTextContent());
 	}
+	if(action.equals("delete")){
+		Element name = (Element) main.getElementsByTagName("name").item(0);
+		toReturn.setName(name.getTextContent());
+	}
 	return toReturn;
 }
 
@@ -109,7 +113,9 @@ public Document create(Obj toCreate) {
 		password.setTextContent(toCreate.getPassword());
 		main.appendChild(password);
 	}
-	if (action.equals("answer for creating user") || action.equals("answer for login") || action.equals("answer for changing") || action.equals("answer for banning")) {
+	if (action.equals("answer for creating user") || action.equals("answer for login")
+			|| action.equals("answer for changing") || action.equals("answer for banning")
+			|| action.equals("answer for delete")) {
 		
 		Element name = toReturn.createElement("name");
 		name.setTextContent(toCreate.getName());
@@ -164,6 +170,7 @@ public Document create(Obj toCreate) {
 		name.setTextContent(toCreate.getName());
 		main.appendChild(name);
 	}
+	
 	return toReturn;
 }
 

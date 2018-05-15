@@ -149,5 +149,7 @@ public void addUser(User user) {
 	writeFile();
 }
 
-
+public void removeUser(User user){
+	if(users.contains(user)) users.remove(user);
+}
 }

@@ -247,6 +247,27 @@ private void process(Document document) {
 		
 		updOnline();
 	}
+	if(action.equals("delete")&&user.isAdmin().equals(true)){
+	String name = parsed.getName();
+	toCreate.setAction("answer for delete");
+	if(list.getUserByName(name)==null||list.getUserByName(name).isAdmin().equals("true")) toCreate.setResult("false");
+	else{
+		User toDelete = list.getUserByName(name);
+		list.removeUser(toDelete);
+		list.writeFile();
+		if(userSocket.containsKey(user)) {
+			try {
+				userSocket.get(user).close();
+			} catch (IOException e) {
+				logger.error("problem with deleting " + name + "\n" + e);
+			}
+			userSocket.remove(toDelete);
+		}
+		toCreate.setResult("true");
+	}
+		sendXML(parser.create(toCreate), userSocket.get(user));
+		updOnline();
+	}
 	
 }
 private Obj youAreBanned(String name) {
