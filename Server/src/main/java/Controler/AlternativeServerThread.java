@@ -249,17 +249,18 @@ private void process(Document document) {
 		
 		updOnline();
 	}
-	if(action.equals("delete")&&user.isAdmin().equals(true)){
+	if(action.equals("delete")&&user.isAdmin().equals("true")&&logedIn){
 	String name = parsed.getName();
 	toCreate.setAction("answer for delete");
+		System.out.println(name);
 	if(list.getUserByName(name)==null||list.getUserByName(name).isAdmin().equals("true")) toCreate.setResult("false");
 	else{
 		User toDelete = list.getUserByName(name);
 		list.removeUser(toDelete);
 		list.writeFile();
-		if(userSocket.containsKey(user)) {
+		if(userSocket.containsKey(toDelete)) {
 			try {
-				userSocket.get(user).close();
+				userSocket.get(toDelete).close();
 			} catch (IOException e) {
 				logger.error("problem with deleting " + name + "\n" + e);
 			}

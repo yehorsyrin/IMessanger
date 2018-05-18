@@ -367,3 +367,88 @@ java.net.ConnectException: Connection refused: connect
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
 	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+2018-05-18 20:50:05   run   Error in "Client.run" during reading from input stream 
+java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:284)
+	at sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:326)
+	at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:178)
+	at java.io.InputStreamReader.read(InputStreamReader.java:184)
+	at java.io.BufferedReader.fill(BufferedReader.java:161)
+	at java.io.BufferedReader.readLine(BufferedReader.java:324)
+	at java.io.BufferedReader.readLine(BufferedReader.java:389)
+	at com.company.controller.Client.run(Client.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+2018-05-18 22:01:13   main   Started 
+2018-05-18 22:03:43   main   Started 
+2018-05-18 22:05:58   run   Error in "Client.run" during reading from input stream 
+java.net.SocketException: Socket closed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:284)
+	at sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:326)
+	at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:178)
+	at java.io.InputStreamReader.read(InputStreamReader.java:184)
+	at java.io.BufferedReader.fill(BufferedReader.java:161)
+	at java.io.BufferedReader.readLine(BufferedReader.java:324)
+	at java.io.BufferedReader.readLine(BufferedReader.java:389)
+	at com.company.controller.Client.run(Client.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+2018-05-18 22:05:59   run   Error in "Client.run" during reading from input stream 
+java.net.SocketException: Socket closed
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at sun.nio.cs.StreamDecoder.readBytes(StreamDecoder.java:284)
+	at sun.nio.cs.StreamDecoder.implRead(StreamDecoder.java:326)
+	at sun.nio.cs.StreamDecoder.read(StreamDecoder.java:178)
+	at java.io.InputStreamReader.read(InputStreamReader.java:184)
+	at java.io.BufferedReader.fill(BufferedReader.java:161)
+	at java.io.BufferedReader.readLine(BufferedReader.java:324)
+	at java.io.BufferedReader.readLine(BufferedReader.java:389)
+	at com.company.controller.Client.run(Client.java:92)
+	at java.lang.Thread.run(Thread.java:748)
+2018-05-18 22:06:09   sendXML       problem with sending message to client, user 127.0.0.1 
+java.net.SocketException: Socket is closed
+	at java.base/java.net.Socket.getOutputStream(Socket.java:944)
+	at Controler.AlternativeServerThread.sendXML(AlternativeServerThread.java:297)
+	at Controler.AlternativeServerThread.process(AlternativeServerThread.java:271)
+	at Controler.AlternativeServerThread.run(AlternativeServerThread.java:48)
+2018-05-18 22:06:09   sendXML       problem with sending message to client, user 127.0.0.1 
+java.net.SocketException: Socket is closed
+	at java.base/java.net.Socket.getOutputStream(Socket.java:944)
+	at Controler.AlternativeServerThread.sendXML(AlternativeServerThread.java:297)
+	at Controler.AlternativeServerThread.updOnline(AlternativeServerThread.java:314)
+	at Controler.AlternativeServerThread.process(AlternativeServerThread.java:272)
+	at Controler.AlternativeServerThread.run(AlternativeServerThread.java:48)
+2018-05-18 22:07:15   sendXML       problem with sending message to client, user 127.0.0.1 
+java.net.SocketException: Socket is closed
+	at java.base/java.net.Socket.getOutputStream(Socket.java:944)
+	at Controler.AlternativeServerThread.sendXML(AlternativeServerThread.java:297)
+	at Controler.AlternativeServerThread.process(AlternativeServerThread.java:142)
+	at Controler.AlternativeServerThread.run(AlternativeServerThread.java:48)
+2018-05-18 22:07:18   sendXML       problem with sending message to client, user 127.0.0.1 
+java.net.SocketException: Socket is closed
+	at java.base/java.net.Socket.getOutputStream(Socket.java:944)
+	at Controler.AlternativeServerThread.sendXML(AlternativeServerThread.java:297)
+	at Controler.AlternativeServerThread.process(AlternativeServerThread.java:142)
+	at Controler.AlternativeServerThread.run(AlternativeServerThread.java:48)
+2018-05-18 22:07:21   sendXML       problem with sending message to client, user 127.0.0.1 
+java.net.SocketException: Socket is closed
+	at java.base/java.net.Socket.getOutputStream(Socket.java:944)
+	at Controler.AlternativeServerThread.sendXML(AlternativeServerThread.java:297)
+	at Controler.AlternativeServerThread.process(AlternativeServerThread.java:240)
+	at Controler.AlternativeServerThread.run(AlternativeServerThread.java:48)
+2018-05-18 22:07:21   sendXML       problem with sending message to client, user 127.0.0.1 
+java.net.SocketException: Socket is closed
+	at java.base/java.net.Socket.getOutputStream(Socket.java:944)
+	at Controler.AlternativeServerThread.sendXML(AlternativeServerThread.java:297)
+	at Controler.AlternativeServerThread.updOnline(AlternativeServerThread.java:314)
+	at Controler.AlternativeServerThread.process(AlternativeServerThread.java:250)
+	at Controler.AlternativeServerThread.run(AlternativeServerThread.java:48)
+2018-05-18 22:09:51   main   Started 
+2018-05-18 22:10:38   main   Started 
