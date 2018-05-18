@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import com.company.controller.Main;
 import net.miginfocom.swing.*;
+import org.apache.log4j.Logger;
 
 /**
  * class that creates window for selection action with user
@@ -17,6 +18,7 @@ import net.miginfocom.swing.*;
 public class ActionWithUser extends JFrame {
     private String nickname;
     private String clearNickname;
+    private static Logger logger = Logger.getRootLogger();
 
     /**
      * creates new window for selection action with user
@@ -26,12 +28,14 @@ public class ActionWithUser extends JFrame {
         initComponents();
         if (Main.isAdmin()) {
             banBtn.setEnabled(true);
+            delBtn.setEnabled(true);
         } else {
             banBtn.setEnabled(false);
         }
         if (nickname.contains("<html>")) {
             startChatBtn.setEnabled(false);
-            banBtn.setEnabled(false);
+            //banBtn.setEnabled(false);
+            banBtn.setText("Unban");
         } else {
             startChatBtn.setEnabled(true);
             banBtn.setText("Ban");
@@ -66,6 +70,33 @@ public class ActionWithUser extends JFrame {
         String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"ban\"> <name>" + clearNickname + "</name> </class>";
         Main.getOut().println(msg);
         Main.getOut().flush();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e1) {
+            System.out.println("Error in \"ActionWithUser.banBtnActionPerformed\" during pause of Thread");
+            logger.error("Error in \"ActionWithUser.banBtnActionPerformed\" during pause of Thread", e1);
+        }
+        if (Main.getClient().isCheck()) {
+            if(banBtn.getText().equals("Ban")) {
+                JOptionPane.showMessageDialog(null, "User " + clearNickname + " is banned!");
+            } else {
+                JOptionPane.showMessageDialog(null, "User " + clearNickname + " is unbanned!");
+            }
+            this.dispose();
+        }
+    }
+    private void delBtnActionPerformed(ActionEvent e) {
+        String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"delete\"> <name>" + clearNickname + "</name> </class>";
+        Main.getOut().println(msg);
+        Main.getOut().flush();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e1) {
+            System.out.println("Error in \"ActionWithUser.delBtnActionPerformed\" during pause of Thread");
+            logger.error("Error in \"ActionWithUser.delBtnActionPerformed\" during pause of Thread", e1);
+        }
+        JOptionPane.showMessageDialog(null, "User " + clearNickname + " is deleted!");
+        this.dispose();
     }
 
     private void initComponents() {
@@ -75,6 +106,7 @@ public class ActionWithUser extends JFrame {
         panel = new JPanel();
         startChatBtn = new JButton();
         banBtn = new JButton();
+        delBtn = new JButton();
 
         //======== this ========
         setMinimumSize(new Dimension(16, 39));
@@ -123,6 +155,17 @@ public class ActionWithUser extends JFrame {
                 }
             });
             panel.add(banBtn);
+
+            //---- delBtn ----
+            delBtn.setText("Delete");
+            delBtn.setEnabled(false);
+            delBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    delBtnActionPerformed(e);
+                }
+            });
+            panel.add(delBtn);
         }
         contentPane.add(panel, BorderLayout.SOUTH);
         pack();
@@ -136,5 +179,6 @@ public class ActionWithUser extends JFrame {
     private JPanel panel;
     private JButton startChatBtn;
     private JButton banBtn;
+    private JButton delBtn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

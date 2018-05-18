@@ -111,6 +111,9 @@ public class Parser {
             if (action.equals("you are banned")) {
                 info.setAction(action);
             }
+            if (action.equals("you are not banned")) {
+                info.setAction(action);
+            }
             if (action.equals("server stop")) {
                 info.setAction(action);
             }
