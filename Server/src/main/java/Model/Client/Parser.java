@@ -105,6 +105,12 @@ public class Parser {
                 String resultStr = result.getTextContent();
                 info.setCheck(resultStr);
             }
+            if (action.equals("answer for delete")) {
+                info.setAction(action);
+                Element result = (Element) main.getElementsByTagName("result").item(0);
+                String resultStr = result.getTextContent();
+                info.setCheck(resultStr);
+            }
             if (action.equals("you are not admin")) {
                 info.setAction(action);
             }

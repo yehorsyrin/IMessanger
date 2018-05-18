@@ -82,8 +82,14 @@ public class ActionWithUser extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "User " + clearNickname + " is unbanned!");
             }
-            this.dispose();
+        } else {
+            if(banBtn.getText().equals("Ban")) {
+                JOptionPane.showMessageDialog(null, "User " + clearNickname + " is not banned!");
+            } else {
+                JOptionPane.showMessageDialog(null, "User " + clearNickname + " is not unbanned!");
+            }
         }
+        this.dispose();
     }
     private void delBtnActionPerformed(ActionEvent e) {
         String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"delete\"> <name>" + clearNickname + "</name> </class>";
@@ -95,7 +101,11 @@ public class ActionWithUser extends JFrame {
             System.out.println("Error in \"ActionWithUser.delBtnActionPerformed\" during pause of Thread");
             logger.error("Error in \"ActionWithUser.delBtnActionPerformed\" during pause of Thread", e1);
         }
-        JOptionPane.showMessageDialog(null, "User " + clearNickname + " is deleted!");
+        if (Main.getClient().isCheck()) {
+            JOptionPane.showMessageDialog(null, "User " + clearNickname + " is deleted!");
+        } else {
+            JOptionPane.showMessageDialog(null, "User " + clearNickname + " is not deleted!");
+        }
         this.dispose();
     }
 
