@@ -202,7 +202,6 @@ private void process(Document document) {
 		toCreate.setResult("true");
 		Obj m = new Obj();
 		if (list.getUserByName(parsed.getName()).isBanned().equals("true")) {
-			list.getUserByName(parsed.getName()).setBan(false);
 			m.setAction("chat message");
 			m.setFrom("SERVER");
 			m.setText(parsed.getName() + " is not banned now");
@@ -210,9 +209,12 @@ private void process(Document document) {
 			for (User user1: users) {
 				if (user1.isBanned().equals("false")) sendXML(parser.create(m), userSocket.get(user1));
 			}
-			youAreNotBanned(parsed.getName());
+			System.out.println(parsed.getName());
+			sendXML(parser.create(youAreNotBanned(parsed.getName())),userSocket.get(list.getUserByName(parsed.getName())));
+			list.getUserByName(parsed.getName()).setBan(false);
 		}
 		else{
+			System.out.println(parsed.getName());
 			m.setAction("chat message");
 			m.setFrom("SERVER");
 			m.setText(parsed.getName() + " is banned now");
@@ -221,7 +223,7 @@ private void process(Document document) {
 				if (user1.isBanned().equals("false")) sendXML(parser.create(m), userSocket.get(user1));
 			}
 			list.getUserByName(parsed.getName()).setBan(true);
-			youAreBanned(parsed.getName());
+			sendXML(parser.create(youAreBanned(parsed.getName())),userSocket.get(list.getUserByName(parsed.getName())));
 		}
 		list.writeFile();
 		sendXML(parser.create(toCreate), userSocket.get(user));
