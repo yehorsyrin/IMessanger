@@ -52,7 +52,7 @@ public class Start extends JFrame {
                 Main.setMainWindow(new MainWindow());
                 Main.getMainWindow().setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Error in nickname/password");
+                JOptionPane.showMessageDialog(null, "Error in nickname/password or user with this login already logged in");
             }
             Main.getMainWindow().setTitle(Main.getNick());
         }
