@@ -129,14 +129,35 @@ public class Parser {
             if (action.equals("message")) {
                 info.setAction(action);
                 Element from = (Element) main.getElementsByTagName("from").item(0);
-                final String fromStr = from.getTextContent();
+                String fromStr = from.getTextContent();
                 info.setFrom(fromStr);
                 Element to = (Element) main.getElementsByTagName("to").item(0);
                 String toStr = to.getTextContent();
-                Element text = (Element) main.getElementsByTagName("text").item(0);
                 info.setTo(toStr);
+                Element text = (Element) main.getElementsByTagName("text").item(0);
                 String textStr = text.getTextContent();
                 info.setMessage(textStr);
+            }
+            if (action.equals("answer for private chat")) {
+                info.setAction(action);
+                Element from = (Element) main.getElementsByTagName("from").item(0);
+                String fromStr = from.getTextContent();
+                info.setFrom(fromStr);
+                Element to = (Element) main.getElementsByTagName("to").item(0);
+                String toStr = to.getTextContent();
+                info.setTo(toStr);
+                Element result = (Element) main.getElementsByTagName("result").item(0);
+                String resultStr = result.getTextContent();
+                info.setCheck(resultStr);
+            }
+            if (action.equals("ask for private chat")) {
+                info.setAction(action);
+                Element from = (Element) main.getElementsByTagName("from").item(0);
+                String fromStr = from.getTextContent();
+                info.setFrom(fromStr);
+                Element to = (Element) main.getElementsByTagName("to").item(0);
+                String toStr = to.getTextContent();
+                info.setTo(toStr);
             }
         }
     }

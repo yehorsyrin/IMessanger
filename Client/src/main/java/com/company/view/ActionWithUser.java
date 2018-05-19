@@ -49,7 +49,7 @@ public class ActionWithUser extends JFrame {
 
     private void startChatBtnActionPerformed(ActionEvent e) {
         if (!Main.getChats().containsKey(nickname)) {
-            PrivateChat chat = new PrivateChat(nickname);
+            /*PrivateChat chat = new PrivateChat(nickname);
             chat.setCheck(true);
             Main.getChats().put(nickname, chat);
             JFrame frame = new JFrame();
@@ -61,7 +61,11 @@ public class ActionWithUser extends JFrame {
             frame.setSize(398, 300);
             frame.setTitle(nickname);
             frame.add(chat);
-            frame.setVisible(true);
+            frame.setVisible(true);*/
+            String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"ask for private chat\"> <from>"
+                    + Main.getNick() + "</from><to>" + clearNickname + "</to> </class>";
+            Main.getOut().println(msg);
+            Main.getOut().flush();
         }
         dispose();
     }

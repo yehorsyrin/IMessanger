@@ -1,6 +1,7 @@
 package com.company.controller;
 
 import Model.Client.Parser;
+import com.company.view.AnswerForPrivateChat;
 import com.company.view.PrivateChat;
 import com.company.view.Start;
 import org.apache.log4j.Logger;
@@ -201,6 +202,30 @@ public class Client implements Runnable {
                     Main.getStart().setVisible(true);
                     setup(Main.getHost(), Main.getPort());
                     Main.getMainChat().getTextPane().setText(Main.getMainChat().getTextPane().getText() + "\nServer reloaded!");
+                }
+                if(action.equals("answer for private chat")) {
+                    if(parser.getInfo().getCheck().equals("true")) {
+                        PrivateChat chat = new PrivateChat(parser.getInfo().getFrom());
+                        chat.setCheck(true);
+                        Main.getChats().put(parser.getInfo().getFrom(), chat);
+                        JFrame frame = new JFrame();
+                        frame.addWindowListener(new WindowAdapter() {
+                            public void windowClosing(WindowEvent e) {
+                                Main.getChats().remove(parser.getInfo().getFrom());
+                            }
+                        });
+                        frame.setSize(398, 300);
+                        frame.setTitle(parser.getInfo().getFrom());
+                        frame.add(chat);
+                        frame.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "User " + parser.getInfo().getFrom()
+                                + " declined your invitation to private chat!");
+                    }
+                }
+                if(action.equals("ask for private chat")) {
+                    AnswerForPrivateChat answer = new AnswerForPrivateChat(parser.getInfo().getFrom());
+                    answer.setVisible(true);
                 }
                 if (action.equals("message")) {
                     final String fromStr = parser.getInfo().getFrom();
