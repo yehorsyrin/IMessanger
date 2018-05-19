@@ -92,12 +92,21 @@ public class Client implements Runnable {
             while ((input = Main.getIn().readLine()) != null) {
                 parser.parse(input);
                 String action = parser.getInfo().getAction();
+
                 if (action.equals("answer for login")) {
                     String checkStr = parser.getInfo().getCheck();
                     if (checkStr.equals("true")) {
                         logedIn = true;
                     } else {
                         logedIn = false;
+                    }
+                }
+                if (action.equals("answer for delete")) {
+                    String checkStr = parser.getInfo().getCheck();
+                    if (checkStr.equals("true")) {
+                        check = true;
+                    } else {
+                        check = false;
                     }
                 }
                 if (action.equals("answer for creating user")) {
@@ -148,8 +157,10 @@ public class Client implements Runnable {
                 if (action.equals("answer for banning")) {
                     String nameStr = parser.getInfo().getName();
                     String resultStr = parser.getInfo().getCheck();
-                    if (resultStr.equals("true")) {
-                        JOptionPane.showMessageDialog(null, "User " + nameStr + " is banned!");
+                    if(resultStr.equals("true")) {
+                        check = true;
+                    } else {
+                        check = false;
                     }
                 }
                 if (action.equals("you are not admin")) {
@@ -163,6 +174,14 @@ public class Client implements Runnable {
                     Main.getMainWindow().getListOfUsersBtn().setEnabled(false);
                     Main.getMainWindow().getProfileBtn().setEnabled(false);
                     JOptionPane.showMessageDialog(null, "You are banned");
+                }
+                if (action.equals("you are not banned")) {
+                    Main.setBan(false);
+                    Main.setStatus("Your status: User");
+                    Main.getMainWindow().getChatBtn().setEnabled(true);
+                    Main.getMainWindow().getListOfUsersBtn().setEnabled(true);
+                    Main.getMainWindow().getProfileBtn().setEnabled(true);
+                    JOptionPane.showMessageDialog(null, "You are unbanned");
                 }
                 if (action.equals("server stop")) {
                     Main.getMainChat().getTextPane().setText(Main.getMainChat().getTextPane().getText() + "\nServer stopped!");
