@@ -209,12 +209,10 @@ private void process(Document document) {
 			for (User user1: users) {
 				if (user1.isBanned().equals("false")) sendXML(parser.create(m), userSocket.get(user1));
 			}
-			System.out.println(parsed.getName());
 			sendXML(parser.create(youAreNotBanned(parsed.getName())),userSocket.get(list.getUserByName(parsed.getName())));
 			list.getUserByName(parsed.getName()).setBan(false);
 		}
 		else{
-			System.out.println(parsed.getName());
 			m.setAction("chat message");
 			m.setFrom("SERVER");
 			m.setText(parsed.getName() + " is banned now");
@@ -252,7 +250,6 @@ private void process(Document document) {
 	if(action.equals("delete")&&user.isAdmin().equals("true")&&logedIn){
 	String name = parsed.getName();
 	toCreate.setAction("answer for delete");
-		System.out.println(name);
 	if(list.getUserByName(name)==null||list.getUserByName(name).isAdmin().equals("true")) toCreate.setResult("false");
 	else{
 		User toDelete = list.getUserByName(name);
