@@ -271,6 +271,24 @@ private void process(Document document) {
 		sendXML(parser.create(toCreate), userSocket.get(user));
 		updOnline();
 	}
+	if(action.equals("ask for private chat")&&logedIn){
+		if(user.isBanned().equals("false")){
+			if(list.getUserByName(parsed.getTo()).isBanned().equals("false")){
+				sendXML(parser.create(parsed),userSocket.get(list.getUserByName(parsed.getTo())));
+			}
+		}else{
+			sendXML(parser.create(youAreBanned(user.getName())),socket);
+		}
+	}
+	if(action.equals("answer for private chat")&&logedIn){
+		if(user.isBanned().equals("false")){
+			if(list.getUserByName(parsed.getTo()).isBanned().equals("false")){
+				sendXML(parser.create(parsed),userSocket.get(list.getUserByName(parsed.getTo())));
+			}
+		}else{
+			sendXML(parser.create(youAreBanned(user.getName())),socket);
+		}
+	}
 	
 }
 private Obj youAreBanned(String name) {

@@ -84,6 +84,25 @@ public Obj parser(Document document) {
 		Element name = (Element) main.getElementsByTagName("name").item(0);
 		toReturn.setName(name.getTextContent());
 	}
+	if(action.equals("ask for private chat")){
+		Element fromE = (Element) main.getElementsByTagName("from").item(0);
+		String from = fromE.getTextContent();
+		Element toE = (Element) main.getElementsByTagName("to").item(0);
+		String to = toE.getTextContent();
+		toReturn.setFrom(from);
+		toReturn.setTo(to);
+	}
+	if(action.equals("answer for private chat")){
+		Element fromE = (Element) main.getElementsByTagName("from").item(0);
+		String from = fromE.getTextContent();
+		Element toE = (Element) main.getElementsByTagName("to").item(0);
+		String to = toE.getTextContent();
+		Element resultE = (Element) main.getElementsByTagName("result").item(0);
+		String result = resultE.getTextContent();
+		toReturn.setFrom(from);
+		toReturn.setTo(to);
+		toReturn.setResult(result);
+	}
 	return toReturn;
 }
 
@@ -169,6 +188,25 @@ public Document create(Obj toCreate) {
 		Element name = toReturn.createElement("name");
 		name.setTextContent(toCreate.getName());
 		main.appendChild(name);
+	}
+	if(action.equals("ask for private chat")){
+		Element from = toReturn.createElement("from");
+		from.setTextContent(toCreate.getFrom());
+		main.appendChild(from);
+		Element to = toReturn.createElement("to");
+		to.setTextContent(toCreate.getTo());
+		main.appendChild(to);
+	}
+	if(action.equals("answer for private chat")){
+		Element from = toReturn.createElement("from");
+		from.setTextContent(toCreate.getFrom());
+		main.appendChild(from);
+		Element to = toReturn.createElement("to");
+		to.setTextContent(toCreate.getTo());
+		main.appendChild(to);
+		Element result = toReturn.createElement("result");
+		from.setTextContent(toCreate.getResult());
+		main.appendChild(result);
 	}
 	
 	return toReturn;
