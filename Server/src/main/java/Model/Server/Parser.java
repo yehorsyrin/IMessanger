@@ -205,7 +205,7 @@ public Document create(Obj toCreate) {
 		to.setTextContent(toCreate.getTo());
 		main.appendChild(to);
 		Element result = toReturn.createElement("result");
-		from.setTextContent(toCreate.getResult());
+		result.setTextContent(toCreate.getResult());
 		main.appendChild(result);
 	}
 	

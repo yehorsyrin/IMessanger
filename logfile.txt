@@ -452,3 +452,7 @@ java.net.SocketException: Socket is closed
 	at Controler.AlternativeServerThread.run(AlternativeServerThread.java:48)
 2018-05-18 22:09:51   main   Started 
 2018-05-18 22:10:38   main   Started 
+2018-05-19 13:36:52   main   Started 
+2018-05-19 13:39:45   main   Started 
+2018-05-19 13:40:17   main   Started 
+2018-05-19 13:40:28   main   Started 
