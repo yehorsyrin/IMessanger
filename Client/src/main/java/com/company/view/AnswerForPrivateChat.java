@@ -10,12 +10,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * class that creates new window for answering the request about private chat
+ */
 public class AnswerForPrivateChat extends JFrame {
     private String nickname;
-    private static Logger logger = Logger.getRootLogger();
 
     /**
-     * creates new window for selection action with user
+     * creates new window for answering the request about private chat
      * @param nickname nickname of user
      */
     public AnswerForPrivateChat(String nickname) {
@@ -42,7 +44,7 @@ public class AnswerForPrivateChat extends JFrame {
             frame.setTitle(nickname);
             frame.add(chat);
             frame.setVisible(true);
-            String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"ban\"> <from>" + Main.getNick() + "</from><to>"
+            String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"answer for private chat\"> <from>" + Main.getNick() + "</from><to>"
                     + nickname +"</to><result>true</result></class>";
             Main.getOut().println(msg);
             Main.getOut().flush();
@@ -51,7 +53,7 @@ public class AnswerForPrivateChat extends JFrame {
     }
 
     private void noBtnActionPerformed(ActionEvent e) {
-        String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"ban\"> <from>" + Main.getNick() + "</from><to>"
+        String msg = "<?xml version='1.0' encoding='utf-8'?><class event = \"answer for private chat\"> <from>" + Main.getNick() + "</from><to>"
                 + nickname +"</to><result>false</result></class>";
         Main.getOut().println(msg);
         Main.getOut().flush();
